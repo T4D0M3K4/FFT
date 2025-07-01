@@ -5,7 +5,7 @@ const role = require('../middlewares/role-middleware');
 const transactionRouter = express.Router();
 
 transactionRouter.route('/')
-    .get(auth, role('Admin'), transactionController.getAll)
+    .get(auth, transactionController.getAll)
     .post(auth, transactionController.create)
 
 transactionRouter.route('/:id')

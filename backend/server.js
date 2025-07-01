@@ -23,13 +23,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/auth', authRouter);
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 app.use('/family', familyRouter);
 app.use('/user-family', userFamilyRouter);
-app.use('/category', categoryRouter);
-app.use('/budget', budgetRouter);
-app.use('/transaction', transactionRouter);
-app.use('/bill', billRouter);
+app.use('/categories', categoryRouter);
+app.use('/budgets', budgetRouter);
+app.use('/transactions', transactionRouter);
+app.use('/bills', billRouter);
 app.use('/upload', uploadRouter);
 
 dbConfig.authenticate()

@@ -19,7 +19,8 @@ const getAll = async (userId) => {
         });
         return results;
     }
-    catch {
+    catch (err) {
+        console.log(err);
         return null;
     }
 }

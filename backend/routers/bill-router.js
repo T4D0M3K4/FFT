@@ -5,8 +5,8 @@ const role = require('../middlewares/role-middleware');
 const billRouter = express.Router();
 
 billRouter.route('/')
-    .get(auth, role('Admin'), billController.getAll)
-    .post(auth, billController.create)
+    .get(auth, billController.getAll)
+    .post(auth, role('Admin'), billController.create)
 
 billRouter.route('/:id')
     .get(auth, billController.getById)

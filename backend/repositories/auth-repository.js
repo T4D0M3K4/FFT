@@ -21,12 +21,11 @@ const login = async (body) => {
             replacements: [body.USER_EMAIL]
         });
         if (!results[0]) return null;
-
-        const isMatch = await bcrypt.compare(body.USER_PASSWORD, results[0].USER_PASSWORD);
+        const isMatch = bcrypt.compareSync(body.USER_PASSWORD, results[0].USER_PASSWORD);
         if (!isMatch) return null;
-
         const token = jwt.sign({id: results[0].USER_ID, role: results[0].USER_ROLE}, process.env.JWT_SECRET, {expiresIn: '1d'});
-        return token;
+        const {USER_PASSWORD, ...other} = results[0];
+        return {token, other};
     }
     catch {
         return null;

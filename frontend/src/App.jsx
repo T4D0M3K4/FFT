@@ -1,10 +1,36 @@
-import Login from "./Pages/Login/Login"
-
+import React from "react";
+import {Routes, Route} from 'react-router-dom';
+import Login from './Pages/Login/Login';
+import Register from './Pages/Register/Register';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import Transactions from './Pages/Transactions/Transactions';
+import Bills from './Pages/Bills/Bills';
+import Budgets from './Pages/Budgets/Budgets';
+import Categories from './Pages/Categories/Categories';
+import BillUploadForm from './Pages/BillUploadForm/BillUploadForm';
+import Profile from './Pages/Profile/Profile';
+import ProtectedRoute from './Auth/ProtectedRoute/ProtectedRoute';
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
 
   return (
-     <></>
+    <>
+      
+      <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
+        <Route path="/transactions" element={<ProtectedRoute><Transactions/></ProtectedRoute>}/>
+        <Route path="/bills" element={<ProtectedRoute><Bills/></ProtectedRoute>}/>
+        <Route path="/bills/upload" element={<ProtectedRoute><BillUploadForm/></ProtectedRoute>}/>
+        <Route path="/budgets" element={<ProtectedRoute><Budgets/></ProtectedRoute>}/>
+        <Route path="/categories" element={<ProtectedRoute><Categories/></ProtectedRoute>}/>
+        <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+      </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 

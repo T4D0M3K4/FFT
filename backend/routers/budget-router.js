@@ -5,7 +5,7 @@ const role = require('../middlewares/role-middleware');
 const budgetRouter = express.Router();
 
 budgetRouter.route('/')
-    .get(auth, role('Admin'), budgetController.getAll)
+    .get(auth, budgetController.getAll)
     .post(auth, budgetController.create)
 
 budgetRouter.route('/:id')

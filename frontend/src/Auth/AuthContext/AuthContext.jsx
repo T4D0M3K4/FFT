@@ -1,27 +1,30 @@
 import { createContext, useState, useEffect } from "react";
+import api from '../../API/API';
 export const AuthContext = createContext();
 
+
 export const AuthContextProvider = ({ children }) => {
-  const [userRole, setUserRole] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')||null));
 
   useEffect(() => {
-    const role = localStorage.getItem("role");
-    if (role) setUserRole(role);
-  }, []);
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
 
-  const login = (token, role) => {
-    localStorage.setItem("token", token);
-    localStorage.setItem("role", role);
-    setUserRole(role);
+  const login = async (input) => {
+    await api.post('/auth/login', input)
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
+        setUser(res.data.other);
+      })
   };
 
-  const logout = () => {
+  const logout = async () => {
     localStorage.clear();
-    setUserRole(null);
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ userRole, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
