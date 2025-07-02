@@ -9,7 +9,7 @@ const Navbar = () => {
     return(
         <nav className={styles.navbar}>
             <div className={styles.navbarLeft}>
-                <Link className={styles.title} to={'../dashboard'}>BudgetBuddy</Link>
+                <Link className={styles.title} to={'../'}>BudgetBuddy</Link>
                 {user && <Link to={'../transactions'}>Transactions</Link>}
                 {user && <Link to={'../bills'}>Bills</Link>}
                 {user && <Link to={'../budgets'}>Budgets</Link>}

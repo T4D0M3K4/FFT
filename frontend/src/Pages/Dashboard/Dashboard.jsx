@@ -9,19 +9,55 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const Dashboard = () => {
 
     const [transactions, setTransactions] = useState([]);
+    const [budgets, setBudgets] = useState([]);
+    const [bills, setBills] = useState([]);
 
     useEffect(() => {
         api.get('/transactions')
             .then(res => setTransactions(res.data));
+        api.get('/budgets')
+            .then(res => setBudgets(res.data));
+        api.get('/bills')
+            .then(res => setBills(res.data));
     }, []);
 
-    const chartData = {
+    const filteredExpenseTransactions = transactions.filter(transaction => transaction.TRANSACTION_TYPE === 'Expense');
+    const filteredIncomeTransactions = transactions.filter(transaction => transaction.TRANSACTION_TYPE === 'Income');
+
+    const transactionsData = {
         labels: transactions.map(transaction => transaction.TRANSACTION_DATE),
         datasets: [
             {
+                label: 'Amount of Income',
+                data: filteredIncomeTransactions.map(transaction => transaction.TRANSACTION_AMOUNT),
+                backgroundColor: 'green'
+            },
+            {
+                label: 'Amount of Expense',
+                data: filteredExpenseTransactions.map(transaction => transaction.TRANSACTION_AMOUNT),
+                backgroundColor: 'red'
+            }
+        ]
+    };
+
+    const budgetsData = {
+        labels: budgets.map(budget => `${budget.BUDGET_STARTDATE} - ${budget.BUDGET_ENDDATE}`),
+        datasets: [
+            {
                 label: 'Amount',
-                data: transactions.map(transaction => transaction.TRANSACTION_AMOUNT),
-                backgroundColor: transactions.map(transaction => transaction.TRANSACTION_TYPE === 'Income' ? 'green' : 'red')
+                data: budgets.map(budget => budget.BUDGET_AMOUNT),
+                backgroundColor: 'blue'
+            }
+        ]
+    };
+
+    const billsData = {
+        labels: bills.map(bill => bill.BILL_DUEDATE),
+        datasets: [
+            {
+                label: 'Amount',
+                data: bills.map(bill => bill.BILL_AMOUNT),
+                backgroundColor: 'lightblue'
             }
         ]
     };
@@ -29,7 +65,12 @@ const Dashboard = () => {
     return(
         <div className={styles.dashboard}>
             <h2 className={styles.dashboardh2}>Dashboard</h2>
-            <Bar data={chartData}/>
+            <h3>Transactions</h3>
+            <Bar data={transactionsData}/>
+            <h3>Budgets</h3>
+            <Bar data={budgetsData}/>
+            <h3>Bills</h3>
+            <Bar data={billsData}/>
         </div>
     );
 };

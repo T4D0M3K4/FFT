@@ -7,14 +7,12 @@
     padding: 0;
 }
 
-.bllli {
+.billsli {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
     justify-content: space-between;
     margin-bottom: 0.5rem;
 }
 
-.billselect, .billbutton {
+.billselect {
     padding: 0.3rem 0.5rem;
 }

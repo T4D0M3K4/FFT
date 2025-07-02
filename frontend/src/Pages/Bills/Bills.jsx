@@ -6,10 +6,10 @@ const Bills = () => {
     const [bills, setBills] = useState([]);
     const [statusUpdates, setStatusUpdates] = useState({});
 
-    const loadBills = () => {
-        api.get('/bills')
-            .then(res => setBills(res.data))
-            .catch(err => console.error(err));
+    const loadBills = async () => {
+        await api.get('/bills')
+                .then(res => setBills(res.data))
+                .catch(err => console.error(err));
     }
 
     useEffect(() => {
@@ -25,16 +25,16 @@ const Bills = () => {
         <div className={styles.container}>
             <h2>Your Bills</h2>
             <ul className={styles.billul}>
-                {bills.map(bill => {
-                    <li className={styles.billli} key={bill.BILL_ID}>
-                        {bill.BILL_DUEDATE}: {bill.BILL_AMOUNT} ({bill.BILL_STATUS})
-                        <select className={styles.billli} value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
+                {bills && bills.map(bill =>
+                    <li className={styles.billsli} key={bill.BILL_ID}>
+                        {bill.BILL_DUEDATE}: {bill.BILL_FILEPATH} &nbsp; {bill.BILL_AMOUNT} ({bill.BILL_STATUS})
+                        <select className={styles.billselect} value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
                             <option value="Pending">Pending</option>
                             <option value="Paid">Paid</option>
                             <option value="Overdue">Overdue</option>
                         </select>
                     </li>
-                })}
+                )}
             </ul>
         </div>
     );

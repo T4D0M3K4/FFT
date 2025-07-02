@@ -6,8 +6,6 @@ const cors = require('cors');
 // Router-i:
 const authRouter = require('./routers/auth-router');
 const userRouter = require('./routers/user-router');
-const familyRouter = require('./routers/family-router');
-const userFamilyRouter = require('./routers/user_family-router');
 const categoryRouter = require('./routers/category-router');
 const budgetRouter = require('./routers/budget-router');
 const transactionRouter = require('./routers/transaction-router');
@@ -24,8 +22,6 @@ app.use(cors());
 app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
-app.use('/family', familyRouter);
-app.use('/user-family', userFamilyRouter);
 app.use('/categories', categoryRouter);
 app.use('/budgets', budgetRouter);
 app.use('/transactions', transactionRouter);
