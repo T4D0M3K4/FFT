@@ -1,0 +1,26 @@
+.container {
+    padding: 1rem;
+}
+
+.categoriesform {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.categoriesinput, .categoriesselect, .categoriesbutton {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.categoriesul {
+    list-style: none;
+    padding: 0;
+}
+
+.categoriesli {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}

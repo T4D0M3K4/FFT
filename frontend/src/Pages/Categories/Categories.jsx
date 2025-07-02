@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
+import styles from './Categories.module.css';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
@@ -34,20 +35,21 @@ const Categories = () => {
     }
 
     return(
-        <div>
+        <div className={styles.container}>
             <h2>Categories</h2>
-            <form onSubmit={handleCreate}>
-                <input type="text" placeholder="Category Name" value={newCategory.CATEGORY_NAME} onChange={(e) => setNewCategory({...newCategory, CATEGORY_NAME: e.target.value})} required/>
-                <select value={newCategory.CATEGORY_TYPE} onChange={(e) => setNewCategory({...newCategory, CATEGORY_TYPE: e.target.value})}>
+            <form className={styles.categoriesform} onSubmit={handleCreate}>
+                <input className={styles.categoriesinput} type="text" placeholder="Category Name" value={newCategory.CATEGORY_NAME} onChange={(e) => setNewCategory({...newCategory, CATEGORY_NAME: e.target.value})} required/>
+                <select className={styles.categoriesselect} value={newCategory.CATEGORY_TYPE} onChange={(e) => setNewCategory({...newCategory, CATEGORY_TYPE: e.target.value})}>
                     <option value="Transaction">Transaction</option>
                     <option value="Budget">Budget</option>
                 </select>
+                <button className={styles.categoriesbutton} type="submit">Add Category</button>
             </form>
-            <ul>
+            <ul className={styles.categoriesul}>
                 {categories.map(category =>
-                    <li key={category.CATEGORY_ID}>
+                    <li className={styles.categoriesli} key={category.CATEGORY_ID}>
                         {category.CATEGORY_NAME} ({category.CATEGORY_TYPE})
-                        <button onClick={() => handleDelete(category.CATEGORY_ID)}>Delete</button>
+                        <button className={styles.categoriesbutton} onClick={() => handleDelete(category.CATEGORY_ID)}>Delete</button>
                     </li>
                 )}
             </ul>

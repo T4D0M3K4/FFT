@@ -1,0 +1,26 @@
+.container {
+    padding: 1rem;
+}
+
+.transactionsform {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.transactionsinput, .transactionsselect, .transactionsbutton {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.transactionsul {
+    list-style: none;
+    padding: 0;
+}
+
+.transactionsli {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
+import styles from './Bills.module.css'
 
 const Bills = () => {
     const [bills, setBills] = useState([]);
@@ -21,13 +22,13 @@ const Bills = () => {
     };
 
     return(
-        <div>
+        <div className={styles.container}>
             <h2>Your Bills</h2>
-            <ul>
+            <ul className={styles.billul}>
                 {bills.map(bill => {
-                    <li key={bill.BILL_ID}>
+                    <li className={styles.billli} key={bill.BILL_ID}>
                         {bill.BILL_DUEDATE}: {bill.BILL_AMOUNT} ({bill.BILL_STATUS})
-                        <select value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
+                        <select className={styles.billli} value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
                             <option value="Pending">Pending</option>
                             <option value="Paid">Paid</option>
                             <option value="Overdue">Overdue</option>

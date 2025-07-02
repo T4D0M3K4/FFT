@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
+import styles from './Budgets.module.css';
 
 const Budgets = () => {
     const [budgets, setBudgets] = useState([]);
@@ -38,19 +39,19 @@ const Budgets = () => {
     };
 
     return(
-        <div>
+        <div className={styles.container}>
             <h2>Your Budgets</h2>
-            <form onSubmit={handleCreate}>
-                <input type="number" placeholder="Amount" value={newBudget.BUDGET_AMOUNT} onChange={(e) => setNewBudget({...newBudget, BUDGET_AMOUNT: e.target.value})} required/>
-                <input type="date" value={newBudget.BUDGET_STARTDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_STARTDATE: e.target.value})} required />
-                <input type="date" value={newBudget.BUDGET_ENDDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_ENDDATE: e.target.value})} required />
-                <button type="submit">Add Budget</button>
+            <form className={styles.budgetsform} onSubmit={handleCreate}>
+                <input className={styles.budgetsinput} type="number" placeholder="Amount" value={newBudget.BUDGET_AMOUNT} onChange={(e) => setNewBudget({...newBudget, BUDGET_AMOUNT: e.target.value})} required/>
+                <input className={styles.budgetsinput} type="date" value={newBudget.BUDGET_STARTDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_STARTDATE: e.target.value})} required />
+                <input className={styles.budgetsinput} type="date" value={newBudget.BUDGET_ENDDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_ENDDATE: e.target.value})} required />
+                <button className={styles.budgetsbutton} type="submit">Add Budget</button>
             </form>
-            <ul>
+            <ul className={styles.budgetsul}>
                 {budgets.map(budget =>
-                    <li key={budget.BUDGET_ID}>
+                    <li className={styles.budgetsli} key={budget.BUDGET_ID}>
                         {budget.BUDGET_STARTDATE} to {budget.BUDGET_ENDDATE}: {budget.BUDGET_AMOUNT}
-                        <button onClick={() => handleDelete(budget.BUDGET_ID)}>Delete</button>
+                        <button className={styles.budgetsbutton} onClick={() => handleDelete(budget.BUDGET_ID)}>Delete</button>
                     </li>
                 )}
             </ul>

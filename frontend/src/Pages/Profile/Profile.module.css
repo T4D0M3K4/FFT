@@ -1,0 +1,15 @@
+.container {
+    padding: 1rem;
+}
+
+.profileform {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 400px;
+}
+
+.profileinput, .profilebutton {
+    padding: 0.5rem;
+    font-size: 1rem;
+}

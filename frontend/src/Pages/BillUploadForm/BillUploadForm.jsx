@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import api from "../../API/API";
+import styles from './BillUploadForm.module.css';
 
 const BillUploadForm = () => {
     const [file, setFile] = useState(null);
@@ -26,14 +27,16 @@ const BillUploadForm = () => {
     };
 
     return(
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <h2>Upload BIll</h2>
-            <input type="file" onChange={(e) => setFile(e.target.files[0])} required/>
-            <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required/>
-            <input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required/>
-            <input type="number" placeholder="Budget ID" value={budgetId} onChange={(e) => setBudgetId(e.target.value)} required/>
-            <button type="submit">Upload</button>
-        </form>
+        <div className={styles.container}>
+            <form className={styles.billuploadform} onSubmit={handleSubmit} encType="multipart/form-data">
+                <h2>Upload BIll</h2>
+                <input className={styles.billuploadinput} type="file" onChange={(e) => setFile(e.target.files[0])} required/>
+                <input className={styles.billuploadinput} type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required/>
+                <input className={styles.billuploadinput} type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required/>
+                <input className={styles.billuploadinput} type="number" placeholder="Budget ID" value={budgetId} onChange={(e) => setBudgetId(e.target.value)} required/>
+                <button className={styles.billuploadbutton} type="submit">Upload</button>
+            </form>
+        </div>
     );
 };
 
