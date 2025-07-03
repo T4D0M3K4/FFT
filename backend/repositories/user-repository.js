@@ -3,12 +3,14 @@ const bcrypt = require('bcryptjs');
 
 const create = async (body) => {
     try {
+        const hashedPassword = await bcrypt.hash(body.USER_PASSWORD, 10);
         const [results, metadata] = await dbConfig.query('INSERT INTO fft_user(USER_NAME, USER_SURNAME, USER_EMAIL, USER_PASSWORD, USER_ROLE, USER_PROFILE_IMAGE) VALUES (?, ?, ?, ?, ?, ?)', {
-            replacements: [body.USER_NAME, body.USER_SURNAME, body.USER_EMAIL, body.USER_PASSWORD, body.USER_ROLE, body.USER_PROFILE_IMAGE]
+            replacements: [body.USER_NAME, body.USER_SURNAME, body.USER_EMAIL, hashedPassword, body.USER_ROLE, body.USER_PROFILE_IMAGE]
         });
         return results;
     }
-    catch {
+    catch (err) {
+        console.log(err);
         return null;
     }
 }

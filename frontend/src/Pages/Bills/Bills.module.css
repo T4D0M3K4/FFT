@@ -2,6 +2,13 @@
     padding: 1rem;
 }
 
+.billsfilters {
+    display: flex;
+    flex-wrap: 0.5rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
 .billul {
     list-style: none;
     padding: 0;
@@ -13,6 +20,6 @@
     margin-bottom: 0.5rem;
 }
 
-.billselect {
+.billselect, .billbutton, .billinput {
     padding: 0.3rem 0.5rem;
 }

@@ -1,15 +1,26 @@
-.container {
+.billuploadcontainer {
     padding: 1rem;
+    max-width: 500px;
+    margin: 2rem auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fefefe;
+    text-align: center;
 }
 
 .billuploadform {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    max-width: 400px;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .billuploadinput, .billuploadbutton {
     padding: 0.5rem;
     font-size: 1rem;
+    width: 100%;
+}
+
+.billuploadbutton {
+    cursor: pointer;
 }

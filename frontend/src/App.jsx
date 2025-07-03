@@ -12,6 +12,7 @@ import Profile from './Pages/Profile/Profile';
 import ProtectedRoute from './Auth/ProtectedRoute/ProtectedRoute';
 import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter } from "react-router-dom";
+import Users from "./Pages/Users/Users";
 
 function App() {
 
@@ -24,13 +25,14 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
-        <Route path="/transactions" element={<ProtectedRoute><Transactions/></ProtectedRoute>}/>
-        <Route path="/bills" element={<ProtectedRoute><Bills/></ProtectedRoute>}/>
-        <Route path="/bills/upload" element={<ProtectedRoute><BillUploadForm/></ProtectedRoute>}/>
-        <Route path="/budgets" element={<ProtectedRoute><Budgets/></ProtectedRoute>}/>
-        <Route path="/categories" element={<ProtectedRoute><Categories/></ProtectedRoute>}/>
-        <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+        <Route path="/transactions" element={<ProtectedRoute role='Regular'><Transactions/></ProtectedRoute>}/>
+        <Route path="/bills" element={<ProtectedRoute role='Regular'><Bills/></ProtectedRoute>}/>
+        <Route path="/bills/upload" element={<ProtectedRoute role='Admin'><BillUploadForm/></ProtectedRoute>}/>
+        <Route path="/budgets" element={<ProtectedRoute role='Regular'><Budgets/></ProtectedRoute>}/>
+        <Route path="/categories" element={<ProtectedRoute role='Admin'><Categories/></ProtectedRoute>}/>
+        <Route path="/profile" element={<ProtectedRoute role='Regular'><Profile/></ProtectedRoute>}/>
+        <Route path="/users" element={<ProtectedRoute role='Admin'><Users/></ProtectedRoute>}/>
+
       </Routes>
       </BrowserRouter>
     </>

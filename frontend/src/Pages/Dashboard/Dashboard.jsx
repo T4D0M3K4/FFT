@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import api from "../../API/API";
 import {Bar} from 'react-chartjs-2';
 import styles from './Dashboard.module.css';
+import stylesAdmin from './AdminDashboard.module.css'
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
+import { AuthContext } from "../../Auth/AuthContext/AuthContext";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const Dashboard = () => {
+
+    const {user} = useContext(AuthContext);
 
     const [transactions, setTransactions] = useState([]);
     const [budgets, setBudgets] = useState([]);
@@ -63,7 +67,8 @@ const Dashboard = () => {
     };
 
     return(
-        <div className={styles.dashboard}>
+        <>
+        {user.USER_ROLE === 'Regular' && <div className={styles.dashboard}>
             <h2 className={styles.dashboardh2}>Dashboard</h2>
             <h3>Transactions</h3>
             <Bar data={transactionsData}/>
@@ -71,7 +76,12 @@ const Dashboard = () => {
             <Bar data={budgetsData}/>
             <h3>Bills</h3>
             <Bar data={billsData}/>
-        </div>
+        </div>}
+        {user.USER_ROLE === 'Admin' && <div className={stylesAdmin.admincontainer}>
+                    <h2>Admin Dashboard</h2>
+                    <p>Manage administrative functions:</p>
+                </div>}
+        </>
     );
 };
 

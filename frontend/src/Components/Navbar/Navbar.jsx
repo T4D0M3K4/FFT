@@ -9,13 +9,16 @@ const Navbar = () => {
     return(
         <nav className={styles.navbar}>
             <div className={styles.navbarLeft}>
-                <Link className={styles.title} to={'../'}>BudgetBuddy</Link>
-                {user && <Link to={'../transactions'}>Transactions</Link>}
-                {user && <Link to={'../bills'}>Bills</Link>}
-                {user && <Link to={'../budgets'}>Budgets</Link>}
+                {!user && <Link className={styles.title} to={'../'}>BudgetBuddy</Link>}
+                {user && user.USER_ROLE === 'Regular' && <Link className={styles.title} to={'../'}>BudgetBuddy</Link>}
+                {user && user.USER_ROLE === 'Admin' && <Link className={styles.title} to={'../'}>BudgetBuddy</Link>}
+                {user && user.USER_ROLE === 'Regular' && <Link to={'../transactions'}>Transactions</Link>}
+                {user && user.USER_ROLE === 'Regular' && <Link to={'../bills'}>Bills</Link>}
+                {user && user.USER_ROLE === 'Regular' && <Link to={'../budgets'}>Budgets</Link>}
                 {user && user.USER_ROLE === 'Admin' && <Link to={'../categories'}>Categories</Link>}
-                {user && <Link to={'../profile'}>Profile</Link>} 
-                {user && user.USER_ROLE==='Admin' && <li><Link to={'/bills/upload'}>Upload Bill</Link></li>}
+                {user && user.USER_ROLE === 'Regular' && <Link to={'../profile'}>Profile</Link>} 
+                {user && user.USER_ROLE === 'Admin' && <Link to={'/bills/upload'}>Upload Bill</Link>}
+                {user && user.USER_ROLE === 'Admin' && <Link to={'/users'}>Users</Link>}
             </div>
             <div className={styles.navbarRight}>
                 {user && <button onClick={logout}>Logout</button>}

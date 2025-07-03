@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../Auth/AuthContext/AuthContext";
 import {Link, useNavigate } from "react-router-dom";
 import styles from './Login.module.css';
+import {jwtDecode} from 'jwt-decode';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -13,11 +14,13 @@ const Login = () => {
         e.preventDefault();
         try {
             await login({USER_EMAIL: email, USER_PASSWORD: password});
-            navigate('/dashboard');
+            navigate('/');
+            
+
         }
         catch (err) {
-            alert('Login failed');
             console.log(err);
+            alert('Login failed');
         }
     };
 
