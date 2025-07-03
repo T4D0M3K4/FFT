@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import api from  '../../API/API';
-import styles from './Users.module.css';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -27,11 +26,11 @@ const Users = () => {
     };
 
     return (
-        <div className={styles.userscontainer}>
-            <h2>Manage Users</h2>
-            <ul className={styles.userslist}>
+        <div className='container'>
+            <h2>Manage Users(Urediti na svaki nacin)</h2>
+            <ul>
                 {users.map(user => user.USER_ID !== JSON.parse(localStorage.getItem('user')).USER_ID && (
-                    <li className={styles.userItem} key={user.USER_ID}>
+                    <li key={user.USER_ID}>
                         <div>
                             <strong>{user.USER_ID} - {user.USER_NAME} {user.USER_SURNAME}</strong> - {user.USER_EMAIL} - {user.USER_ROLE}
                         </div>
@@ -41,15 +40,15 @@ const Users = () => {
                                     <option value="Regular">Regular</option>
                                     <option value="Admin">Admin</option>
                                 </select>
-                                <button className={styles.userbutton} onClick={() => handleRoleChange(user.USER_ID)}>Save</button>
+                                <button onClick={() => handleRoleChange(user.USER_ID)}>Save</button>
                             </div>
                         ) : (
                             <div>
-                                <button className={styles.userbutton} onClick={() => {
+                                <button onClick={() => {
                                     setEditing(user.USER_ID);
                                     setUpdatedRole(user.USER_ROLE);
                                 }}>Edit Role</button>
-                                <button className={styles.userbutton} onClick={() => handleDelete(user.USER_ID)}>Delete</button>
+                                <button onClick={() => handleDelete(user.USER_ID)}>Delete</button>
                             </div>
                         )}
                     </li>

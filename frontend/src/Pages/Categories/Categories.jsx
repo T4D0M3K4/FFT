@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
-import styles from './Categories.module.css';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
@@ -35,21 +34,26 @@ const Categories = () => {
     }
 
     return(
-        <div className={styles.container}>
-            <h2>Categories</h2>
-            <form className={styles.categoriesform} onSubmit={handleCreate}>
-                <input className={styles.categoriesinput} type="text" placeholder="Category Name" value={newCategory.CATEGORY_NAME} onChange={(e) => setNewCategory({...newCategory, CATEGORY_NAME: e.target.value})} required/>
-                <select className={styles.categoriesselect} value={newCategory.CATEGORY_TYPE} onChange={(e) => setNewCategory({...newCategory, CATEGORY_TYPE: e.target.value})}>
+        <div className='container'>
+            <h2>Create a New Category:</h2>
+            <form onSubmit={handleCreate}>
+                <label htmlFor="name">Category Name:</label>
+                <input id="name" type="text" placeholder="Category Name" value={newCategory.CATEGORY_NAME} onChange={(e) => setNewCategory({...newCategory, CATEGORY_NAME: e.target.value})} required/>
+
+                <label htmlFor="type">Category Type:</label>
+                <select id="type" value={newCategory.CATEGORY_TYPE} onChange={(e) => setNewCategory({...newCategory, CATEGORY_TYPE: e.target.value})}>
                     <option value="Transaction">Transaction</option>
                     <option value="Budget">Budget</option>
                 </select>
-                <button className={styles.categoriesbutton} type="submit">Add Category</button>
+                <button type="submit">Add Category</button>
             </form>
-            <ul className={styles.categoriesul}>
+
+            <h2>Current Categories:(Treba tabela)</h2>
+            <ul>
                 {categories.map(category =>
-                    <li className={styles.categoriesli} key={category.CATEGORY_ID}>
+                    <li key={category.CATEGORY_ID}>
                         {category.CATEGORY_NAME} ({category.CATEGORY_TYPE})
-                        <button className={styles.categoriesbutton} onClick={() => handleDelete(category.CATEGORY_ID)}>Delete</button>
+                        <button onClick={() => handleDelete(category.CATEGORY_ID)}>Delete</button>
                     </li>
                 )}
             </ul>

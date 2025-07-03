@@ -13,6 +13,8 @@ import ProtectedRoute from './Auth/ProtectedRoute/ProtectedRoute';
 import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter } from "react-router-dom";
 import Users from "./Pages/Users/Users";
+import Footer from "./Components/Footer/Footer";
+import Header from "./Components/Header/Header";
 
 function App() {
 
@@ -20,7 +22,8 @@ function App() {
     <>
       
       <BrowserRouter>
-      <Navbar/>
+      <Header/>
+      <ProtectedRoute><Navbar/></ProtectedRoute>
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
@@ -32,8 +35,8 @@ function App() {
         <Route path="/categories" element={<ProtectedRoute role='Admin'><Categories/></ProtectedRoute>}/>
         <Route path="/profile" element={<ProtectedRoute role='Regular'><Profile/></ProtectedRoute>}/>
         <Route path="/users" element={<ProtectedRoute role='Admin'><Users/></ProtectedRoute>}/>
-
       </Routes>
+      <Footer/>
       </BrowserRouter>
     </>
   )

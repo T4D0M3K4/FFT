@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
-import styles from './Budgets.module.css';
 
 const Budgets = () => {
     const [budgets, setBudgets] = useState([]);
@@ -55,25 +54,39 @@ const Budgets = () => {
     });
 
     return(
-        <div className={styles.container}>
-            <h2>Your Budgets</h2>
-            <form className={styles.budgetsform} onSubmit={handleCreate}>
-                <input className={styles.budgetsinput} type="number" placeholder="Amount" value={newBudget.BUDGET_AMOUNT} onChange={(e) => setNewBudget({...newBudget, BUDGET_AMOUNT: e.target.value})} required/>
-                <input className={styles.budgetsinput} type="date" value={newBudget.BUDGET_STARTDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_STARTDATE: e.target.value})} required />
-                <input className={styles.budgetsinput} type="date" value={newBudget.BUDGET_ENDDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_ENDDATE: e.target.value})} required />
-                <button className={styles.budgetsbutton} type="submit">Add Budget</button>
+        <div className='container'>
+            <h2>Create a New Budget</h2>
+            <form onSubmit={handleCreate}>
+                <label htmlFor="name">Budget Name:</label>
+
+                <label htmlFor="amount">Amount:</label>
+                <input id="amount" type="number" placeholder="Amount" value={newBudget.BUDGET_AMOUNT} onChange={(e) => setNewBudget({...newBudget, BUDGET_AMOUNT: e.target.value})} required/>
+                
+                <label htmlFor="start">Start Date:</label>
+                <input id="start" type="date" value={newBudget.BUDGET_STARTDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_STARTDATE: e.target.value})} required />
+                
+                <label htmlFor="end">End Date:</label>
+                <input id="end" type="date" value={newBudget.BUDGET_ENDDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_ENDDATE: e.target.value})} required />
+                
+                <label htmlFor="category">Category:</label>
+
+                <button type="submit">Add Budget</button>
+            </form><br /><hr />
+
+            <h2>Search:</h2>
+            <form>
+                <input type="number" placeholder="Min Amount" value={filters.minAmount} onChange={(e) => setFilters({...filters, minAmount: e.target.value})} />
+                <input type="number" placeholder="Max Amount" value={filters.maxAmount} onChange={(e) => setFilters({...filters, maxAmount: e.target.value})} />
+                <input type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
+                <input type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
             </form>
-            <div className={styles.budgetsform}>
-                <input className={styles.budgetsinput} type="number" placeholder="Min Amount" value={filters.minAmount} onChange={(e) => setFilters({...filters, minAmount: e.target.value})} />
-                <input className={styles.budgetsinput} type="number" placeholder="Max Amount" value={filters.maxAmount} onChange={(e) => setFilters({...filters, maxAmount: e.target.value})} />
-                <input className={styles.budgetsinput} type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
-                <input className={styles.budgetsinput} type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
-            </div>
-            <ul className={styles.budgetsul}>
+            
+            <h2>Active Budgets:(Treba tabela)</h2>
+            <ul>
                 {filteredBudgets && filteredBudgets.map(budget =>
-                    <li className={styles.budgetsli} key={budget.BUDGET_ID}>
+                    <li key={budget.BUDGET_ID}>
                         {budget.BUDGET_STARTDATE} to {budget.BUDGET_ENDDATE}: {budget.BUDGET_AMOUNT}
-                        <button className={styles.budgetsbutton} onClick={() => handleDelete(budget.BUDGET_ID)}>Delete</button>
+                        <button onClick={() => handleDelete(budget.BUDGET_ID)}>Delete</button>
                     </li>
                 )}
             </ul>

@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import api from "../../API/API";
-import styles from './BillUploadForm.module.css';
 
 const BillUploadForm = () => {
     const [file, setFile] = useState(null);
@@ -34,15 +33,24 @@ const BillUploadForm = () => {
     };
 
     return(
-        <div className={styles.billuploadcontainer}>
-            <form className={styles.billuploadform} onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className='container'>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <h2>Upload BIll</h2>
-                <input className={styles.billuploadinput} type="file" onChange={(e) => setFile(e.target.files[0])} required/>
-                <input className={styles.billuploadinput} type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required/>
-                <input className={styles.billuploadinput} type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required/>
-                <input className={styles.billuploadinput} type="number" placeholder="Budget ID" value={budgetId} onChange={(e) => setBudgetId(e.target.value)} required/>
-                <input className={styles.billuploadinput} type="number" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} required/>
-                <button className={styles.billuploadbutton} type="submit">Upload</button>
+                <label htmlFor="file">Bill:</label>
+                <input id="file" type="file" onChange={(e) => setFile(e.target.files[0])} required/>
+                
+                <label htmlFor="due">Due Date:</label>
+                <input id="due" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required/>
+                
+                <label htmlFor="amount">Amount:</label>
+                <input id="amount" type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required/>
+                
+                <label htmlFor="budget">Budget:(Treba select)</label>
+                <input id="budget" type="number" placeholder="Budget ID" value={budgetId} onChange={(e) => setBudgetId(e.target.value)} required/>
+                
+                <label htmlFor="user">User:(Treba select)</label>
+                <input type="number" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} required/>
+                <button type="submit">Upload</button>
             </form>
         </div>
     );

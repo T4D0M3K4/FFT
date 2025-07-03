@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "../../API/API";
 import { Link } from "react-router-dom";
-import styles from './Register.module.css';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -27,14 +26,21 @@ const Register = () => {
     };
 
     return(
-        <div className={styles.container}>
-            <form className={styles.registerform} onSubmit={handleSubmit}>
-                <h2 className={styles.registerh2}>Register</h2>
-                <input className={styles.registerinput} placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required/>
-                <input className={styles.registerinput} placeholder="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} required/>
-                <input className={styles.registerinput} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-                <input className={styles.registerinput} type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
-                <button className={styles.registerbutton} type="submit">Register</button>
+        <div className='container'>
+            <form onSubmit={handleSubmit}>
+                <h1>Register</h1>
+                <label htmlFor="name">Name:</label>
+                <input id="name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required/>
+                
+                <label htmlFor="surname">Surname:</label>
+                <input id="surname" placeholder="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} required/>
+                
+                <label htmlFor="email">Email:</label>
+                <input id="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                
+                <label htmlFor="password">Password:</label>
+                <input id="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                <button type="submit">Register</button>
                 <p>Already have an account? <Link to={'../login'}>Login</Link></p>
             </form>
         </div>

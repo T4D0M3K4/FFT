@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
-import styles from './Bills.module.css'
 
 const Bills = () => {
     const [bills, setBills] = useState([]);
@@ -43,30 +42,32 @@ const Bills = () => {
     });
 
     return(
-        <div className={styles.container}>
-            <h2>Your Bills</h2>
-            <div className={styles.billsfilters}>
-                <select className={styles.billselect} value={filters.billStatus} onChange={(e) => setFilters({...filters, billStatus: e.target.value})}>
+        <div className='container'>
+            <h2>Search Bills:</h2>
+            <form>
+                <select value={filters.billStatus} onChange={(e) => setFilters({...filters, billStatus: e.target.value})}>
                     <option value="">All Statuses</option>
                     <option value="Pending">Pending</option>
                     <option value="Paid">Paid</option>
                     <option value="Overdue">Overdue</option>
                 </select>
-                <input className={styles.billinput} type="number" placeholder="Min Amount" value={filters.minAmount} onChange={(e) => setFilters({...filters, minAmount: e.target.value})} />
-                <input className={styles.billinput} type="number" placeholder="Max Amount" value={filters.maxAmount} onChange={(e) => setFilters({...filters, maxAmount: e.target.value})} />
-                <input className={styles.billinput} type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
-                <input className={styles.billinput} type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
-            </div>
-            <ul className={styles.billul}>
+                <input type="number" placeholder="Min Amount" value={filters.minAmount} onChange={(e) => setFilters({...filters, minAmount: e.target.value})} />
+                <input type="number" placeholder="Max Amount" value={filters.maxAmount} onChange={(e) => setFilters({...filters, maxAmount: e.target.value})} />
+                <input type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
+                <input type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
+            </form><br /><hr />
+
+            <h2>Current Bills:(Treba tabela)</h2>
+            <ul>
                 {filteredBills && filteredBills.map(bill =>
-                    <li className={styles.billsli} key={bill.BILL_ID}>
+                    <li key={bill.BILL_ID}>
                         {bill.BILL_DUEDATE}: {bill.BILL_AMOUNT} ({bill.BILL_STATUS})
-                        <select className={styles.billselect} value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
+                        <select value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
                             <option value="Pending">Pending</option>
                             <option value="Paid">Paid</option>
                             <option value="Overdue">Overdue</option>
                         </select>
-                        <button className={styles.billbutton} onClick={() => handleDelete(bill.BILL_ID)}>Delete</button>
+                        <button onClick={() => handleDelete(bill.BILL_ID)}>Delete</button>
                     </li>
                 )}
             </ul>

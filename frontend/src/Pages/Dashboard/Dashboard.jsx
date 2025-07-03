@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import api from "../../API/API";
 import {Bar} from 'react-chartjs-2';
-import styles from './Dashboard.module.css';
-import stylesAdmin from './AdminDashboard.module.css'
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { AuthContext } from "../../Auth/AuthContext/AuthContext";
 
@@ -68,16 +66,16 @@ const Dashboard = () => {
 
     return(
         <>
-        {user.USER_ROLE === 'Regular' && <div className={styles.dashboard}>
-            <h2 className={styles.dashboardh2}>Dashboard</h2>
-            <h3>Transactions</h3>
+        {user.USER_ROLE === 'Regular' && <div className="container">
+            <h1>Dashboard</h1>
+            <h2>Transactions</h2>
             <Bar data={transactionsData}/>
-            <h3>Budgets</h3>
+            <h2>Budgets</h2>
             <Bar data={budgetsData}/>
-            <h3>Bills</h3>
+            <h2>Bills</h2>
             <Bar data={billsData}/>
         </div>}
-        {user.USER_ROLE === 'Admin' && <div className={stylesAdmin.admincontainer}>
+        {user.USER_ROLE === 'Admin' && <div className="container">
                     <h2>Admin Dashboard</h2>
                     <p>Manage administrative functions:</p>
                 </div>}

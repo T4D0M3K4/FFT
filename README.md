@@ -1,7 +1,6 @@
 # TODO:
-### Login - CSS + Error handling
-### Register - CSS + kontrola kad je login korisnik + Error handling
-### Dashboard, Transactions, Bills, Categories, BillUploadForm, Users, Navbar - CSS
-### Budgets - CSS + ime budžeta?
-### Profile - CSS + pfp + ostale izmjene
-### AdminDashboard - CSS + dodati šta je moguće
+### Login - Error handling
+### Register - Kontrola kad je login korisnik + Error handling
+### Transactions, Budgets, Bills, Categories, Users - Tabela i probati da se uljepša
+### Profile - PFP + ostale izmjene
+### Dashboard - Vidjeti nešto za 'Regular' i dodati šta je moguće za 'Admin'
