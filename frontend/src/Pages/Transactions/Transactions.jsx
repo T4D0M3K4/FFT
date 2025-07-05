@@ -96,17 +96,29 @@ const Transactions = () => {
                 <input type="number" placeholder="Max Amount" value={filters.maxAmount} onChange={(e) => setFilters({...filters, maxAmount: e.target.value})}/>
                 <input type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
                 <input type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
-            </form>
+            </form><br /><hr />
 
-            <h2>Previous Transactions:(treba tabela)</h2>
-            <ul>
+            <h2>Previous Transactions:</h2>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Descripton</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th></th>
+                </tr>
                 {filterTransactions && filterTransactions.map(transaction => 
-                    <li key={transaction.TRANSACTION_ID}>
-                        {transaction.TRANSACTION_DATE}: {transaction.TRANSACTION_AMOUNT} for {transaction.TRANSACTION_DESCRIPTION} ({transaction.TRANSACTION_TYPE})
-                        <button onClick={() => handleDelete(transaction.TRANSACTION_ID)}>Delete</button>
-                    </li>
+                    <tr>
+                        <td>{transaction.TRANSACTION_DATE}</td>
+                        <td>{transaction.TRANSACTION_AMOUNT}</td>
+                        <td>{transaction.TRANSACTION_DESCRIPTION}</td>
+                        <td>Category</td>
+                        <td>{transaction.TRANSACTION_TYPE}</td>
+                        <td><button onClick={() => handleDelete(transaction.TRANSACTION_ID)}>Delete</button></td>
+                    </tr>
                 )}
-            </ul>
+            </table>
         </div>
     );
 };

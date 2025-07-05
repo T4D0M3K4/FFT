@@ -30,12 +30,12 @@ const Dashboard = () => {
         labels: transactions.map(transaction => transaction.TRANSACTION_DATE),
         datasets: [
             {
-                label: 'Amount of Income',
+                label: 'Income',
                 data: filteredIncomeTransactions.map(transaction => transaction.TRANSACTION_AMOUNT),
                 backgroundColor: 'green'
             },
             {
-                label: 'Amount of Expense',
+                label: 'Expense',
                 data: filteredExpenseTransactions.map(transaction => transaction.TRANSACTION_AMOUNT),
                 backgroundColor: 'red'
             }

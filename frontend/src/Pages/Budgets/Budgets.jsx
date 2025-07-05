@@ -79,17 +79,27 @@ const Budgets = () => {
                 <input type="number" placeholder="Max Amount" value={filters.maxAmount} onChange={(e) => setFilters({...filters, maxAmount: e.target.value})} />
                 <input type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
                 <input type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
-            </form>
+            </form><br /><hr />
             
-            <h2>Active Budgets:(Treba tabela)</h2>
-            <ul>
-                {filteredBudgets && filteredBudgets.map(budget =>
-                    <li key={budget.BUDGET_ID}>
-                        {budget.BUDGET_STARTDATE} to {budget.BUDGET_ENDDATE}: {budget.BUDGET_AMOUNT}
-                        <button onClick={() => handleDelete(budget.BUDGET_ID)}>Delete</button>
-                    </li>
+            <h2>Active Budgets:</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+                {filteredBudgets && filteredBudgets.map(budget => 
+                    <tr>
+                        <td>Name</td>
+                        <td>{budget.BUDGET_STARTDATE}</td>
+                        <td>{budget.BUDGET_ENDDATE}</td>
+                        <td>{budget.BUDGET_AMOUNT}</td>
+                        <td><button onClick={() => handleDelete(budget.BUDGET_ID)}>Delete</button></td>
+                    </tr>
                 )}
-            </ul>
+            </table>
         </div>
     );
 };

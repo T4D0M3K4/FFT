@@ -23,7 +23,7 @@ function App() {
       
       <BrowserRouter>
       <Header/>
-      <ProtectedRoute><Navbar/></ProtectedRoute>
+        <Navbar/>
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>

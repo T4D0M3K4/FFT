@@ -27,33 +27,34 @@ const Users = () => {
 
     return (
         <div className='container'>
-            <h2>Manage Users(Urediti na svaki nacin)</h2>
-            <ul>
-                {users.map(user => user.USER_ID !== JSON.parse(localStorage.getItem('user')).USER_ID && (
-                    <li key={user.USER_ID}>
-                        <div>
-                            <strong>{user.USER_ID} - {user.USER_NAME} {user.USER_SURNAME}</strong> - {user.USER_EMAIL} - {user.USER_ROLE}
-                        </div>
-                        {editing === user.USER_ID ? (
-                            <div>
-                                <select value={updatedRole} onChange={(e) => setUpdatedRole(e.target.value)}>
-                                    <option value="Regular">Regular</option>
-                                    <option value="Admin">Admin</option>
-                                </select>
-                                <button onClick={() => handleRoleChange(user.USER_ID)}>Save</button>
-                            </div>
-                        ) : (
-                            <div>
-                                <button onClick={() => {
-                                    setEditing(user.USER_ID);
-                                    setUpdatedRole(user.USER_ROLE);
-                                }}>Edit Role</button>
-                                <button onClick={() => handleDelete(user.USER_ID)}>Delete</button>
-                            </div>
-                        )}
-                    </li>
-                ))}
-            </ul>
+            <h2>Manage Users:</h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Change Role</th>
+                    <th></th>
+                </tr>
+                {users.map(user => user.USER_ID !== JSON.parse(localStorage.getItem('user')).USER_ID &&
+                    <tr>
+                        <td>{user.USER_ID}</td>
+                        <td>{user.USER_NAME}</td>
+                        <td>{user.USER_SURNAME}</td>
+                        <td>{user.USER_EMAIL}</td>
+                        <td>{user.USER_ROLE}</td>
+                        <td>
+                            <select value={updatedRole} onChange={(e) => {setUpdatedRole(e.target.value); handleRoleChange(user.USER_ID)}}>
+                                <option value="Regular">Regular</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </td>
+                        <td><button onClick={() => handleDelete(user.USER_ID)}>Delete</button></td>
+                    </tr>
+                )}
+            </table>
         </div>
     );
 };

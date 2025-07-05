@@ -6,18 +6,21 @@ const Navbar = () => {
     const {user, logout} = useContext(AuthContext);
 
     return(
-            <nav>
+        <>
+        {user && <nav>
                 <ul>
-                    {user && <li><Link to={'../'}>Home</Link></li>}
-                    {user && user.USER_ROLE === 'Regular' && <li><Link to={'../transactions'}>Transactions</Link></li>}
-                    {user && user.USER_ROLE === 'Regular' && <li><Link to={'../budgets'}>Budgets</Link></li>}
-                    {user && user.USER_ROLE === 'Regular' && <li><Link to={'../bills'}>Bills</Link></li>}
-                    {user && user.USER_ROLE === 'Admin' && <li><Link to={'../categories'}>Categories</Link></li>}
-                    {user && user.USER_ROLE === 'Regular' && <li><Link to={'../profile'}>Profile</Link></li>} 
-                    {user && user.USER_ROLE === 'Admin' && <li><Link to={'/bills/upload'}>Upload Bill</Link></li>}
-                    {user && user.USER_ROLE === 'Admin' && <li><Link to={'/users'}>Users</Link></li>}
+                    {<li><Link to={'../'}>Home</Link></li>}
+                    {user.USER_ROLE === 'Regular' && <li><Link to={'../transactions'}>Transactions</Link></li>}
+                    {user.USER_ROLE === 'Regular' && <li><Link to={'../budgets'}>Budgets</Link></li>}
+                    {user.USER_ROLE === 'Regular' && <li><Link to={'../bills'}>Bills</Link></li>}
+                    {user.USER_ROLE === 'Admin' && <li><Link to={'../categories'}>Categories</Link></li>}
+                    {user.USER_ROLE === 'Regular' && <li><Link to={'../profile'}>Profile</Link></li>} 
+                    {user.USER_ROLE === 'Admin' && <li><Link to={'/bills/upload'}>Upload Bill</Link></li>}
+                    {user.USER_ROLE === 'Admin' && <li><Link to={'/users'}>Users</Link></li>}
                 </ul>
             </nav>
+        } 
+        </>    
     );
 };
 

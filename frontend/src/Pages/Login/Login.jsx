@@ -31,8 +31,9 @@ const Login = () => {
                 
                 <label htmlFor="password">Password:</label>
                 <input id="password" type="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                {localStorage.getItem('token') && <p style={{textAlign: 'center'}}>Invalid credentials</p>}
                 <button  type="submit">Login</button>
-                <p>Don't have an account? <Link to={'/register'}>Register</Link></p>
+                <p>Don't have an account? <Link to={'../register'}>Register</Link></p>
             </form>
         </div>
     );

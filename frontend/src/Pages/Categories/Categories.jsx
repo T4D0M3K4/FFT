@@ -46,17 +46,23 @@ const Categories = () => {
                     <option value="Budget">Budget</option>
                 </select>
                 <button type="submit">Add Category</button>
-            </form>
+            </form><br /><hr />
 
-            <h2>Current Categories:(Treba tabela)</h2>
-            <ul>
-                {categories.map(category =>
-                    <li key={category.CATEGORY_ID}>
-                        {category.CATEGORY_NAME} ({category.CATEGORY_TYPE})
-                        <button onClick={() => handleDelete(category.CATEGORY_ID)}>Delete</button>
-                    </li>
+            <h2>Current Categories:</h2>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th></th>
+                </tr>
+                {categories.map(category => 
+                    <tr id={category.CATEGORY_ID}>
+                        <td>{category.CATEGORY_NAME}</td>
+                        <td>{category.CATEGORY_TYPE}</td>
+                        <td><button onClick={() => handleDelete(category.CATEGORY_ID)}>Delete</button></td>
+                    </tr>
                 )}
-            </ul>
+            </table>
         </div>
     );
 };

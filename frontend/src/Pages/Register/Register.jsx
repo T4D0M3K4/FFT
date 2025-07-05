@@ -3,6 +3,9 @@ import api from "../../API/API";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+
+    //localStorage.clear();
+
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');

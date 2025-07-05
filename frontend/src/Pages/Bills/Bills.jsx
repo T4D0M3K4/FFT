@@ -57,20 +57,33 @@ const Bills = () => {
                 <input type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
             </form><br /><hr />
 
-            <h2>Current Bills:(Treba tabela)</h2>
-            <ul>
+            <h2>Current Bills:</h2>
+            <table>
+                <tr>
+                    <th>File</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Change Status</th>
+                    <th></th>
+                </tr>
                 {filteredBills && filteredBills.map(bill =>
-                    <li key={bill.BILL_ID}>
-                        {bill.BILL_DUEDATE}: {bill.BILL_AMOUNT} ({bill.BILL_STATUS})
-                        <select value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
-                            <option value="Pending">Pending</option>
-                            <option value="Paid">Paid</option>
-                            <option value="Overdue">Overdue</option>
-                        </select>
-                        <button onClick={() => handleDelete(bill.BILL_ID)}>Delete</button>
-                    </li>
+                    <tr>
+                        <td>File</td>
+                        <td>{bill.BILL_DUEDATE}</td>
+                        <td>{bill.BILL_AMOUNT}</td>
+                        <td>{bill.BILL_STATUS}</td>
+                        <td>
+                            <select value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
+                                <option value="Pending">Pending</option>
+                                <option value="Paid">Paid</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </td>
+                        <td><button onClick={() => handleDelete(bill.BILL_ID)}>Delete</button></td>
+                    </tr>
                 )}
-            </ul>
+            </table>
         </div>
     );
 };
