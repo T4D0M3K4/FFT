@@ -38,8 +38,8 @@ const getById = async (userId, id) => {
 
 const update = async (userId, id, body) => {
     try {
-        const [results, metadata] = await dbConfig.query('UPDATE fft_bill SET BILL_DUEDATE = ?, BILL_AMOUNT = ?, BILL_STATUS = ?, BUDGET_ID = ? WHERE BILL_ID = ? AND USER_ID = ?', {
-            replacements: [body.BILL_DUEDATE, body.BILL_AMOUNT, body.BILL_STATUS, body.BUDGET_ID, id, userId]
+        const [results, metadata] = await dbConfig.query('UPDATE fft_bill SET BILL_STATUS = ? WHERE BILL_ID = ? AND USER_ID = ?', {
+            replacements: [body.BILL_STATUS, id, userId]
         });
         return results;
     }

@@ -24,7 +24,7 @@ const Profile = () => {
     };
 
     return(
-        <div>
+        <div className="container">
             <h2>Profile Settings</h2>
             {imageUrl && <img src={imageUrl} alt="Profile preview" />}
             <form onSubmit={handleUpload} encType="multipart/form-data">
