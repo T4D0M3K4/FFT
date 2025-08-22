@@ -23,8 +23,7 @@ const Header = () => {
                     {user.USER_ROLE === 'Admin' && <Link to={'/users'}>Users</Link>}       
                 </nav>} 
             </div>
-            
-                {user && <Link to={'../login'} id="logout-btn" onClick={logout}>Logout</Link>}
+            {user && <Link to={'../login'} id="logout-btn" onClick={logout}>Logout</Link>}
         </header>
     );
 };
