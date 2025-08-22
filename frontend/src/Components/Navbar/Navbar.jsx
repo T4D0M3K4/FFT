@@ -1,13 +1,14 @@
 import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Auth/AuthContext/AuthContext";
+import Header from "../Header/Header";
 
 const Navbar = () => {
-    const {user, logout} = useContext(AuthContext);
+    // const {user, logout} = useContext(AuthContext);
 
     return(
         <>
-        {user && <nav>
+        {/* {user && <nav>
                 <ul>
                     {<li><Link to={'../'}>Home</Link></li>}
                     {user.USER_ROLE === 'Regular' && <li><Link to={'../transactions'}>Transactions</Link></li>}
@@ -19,7 +20,7 @@ const Navbar = () => {
                     {user.USER_ROLE === 'Admin' && <li><Link to={'/users'}>Users</Link></li>}
                 </ul>
             </nav>
-        } 
+        }  */}
         </>    
     );
 };

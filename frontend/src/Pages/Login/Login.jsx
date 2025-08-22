@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../Auth/AuthContext/AuthContext";
 import {Link, useNavigate } from "react-router-dom";
+import "./login.css";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -23,8 +24,8 @@ const Login = () => {
     };
 
     return(
-        <div className="container">
-            <form onSubmit={handleSubmit}>
+        <div className="login-container">
+            <form onSubmit={handleSubmit} className="login-form">
                 <h1>Login</h1>
                 <label htmlFor="email">Email:</label>
                 <input id="email" type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required />

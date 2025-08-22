@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
+import Footer from "../../Components/Footer/Footer";
 
 const Bills = () => {
     const [bills, setBills] = useState([]);
@@ -42,6 +43,7 @@ const Bills = () => {
     });
 
     return(
+        <>
         <div className='container'>
             <h2>Search Bills:</h2>
             <form>
@@ -94,6 +96,8 @@ const Bills = () => {
                 )}
             </table>
         </div>
+        <Footer/>
+        </>
     );
 };
 

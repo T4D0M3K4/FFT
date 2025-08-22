@@ -23,7 +23,7 @@ function App() {
       
       <BrowserRouter>
       <Header/>
-        <Navbar/>
+        {/* <Navbar/> */}
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
@@ -36,7 +36,6 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute role='Regular'><Profile/></ProtectedRoute>}/>
         <Route path="/users" element={<ProtectedRoute role='Admin'><Users/></ProtectedRoute>}/>
       </Routes>
-      <Footer/>
       </BrowserRouter>
     </>
   )

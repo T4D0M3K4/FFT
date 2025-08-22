@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import api from "../../API/API";
+import Footer from "../../Components/Footer/Footer";
 
 const Profile = () => {
     const [file, setFile] = useState(null);
@@ -24,6 +25,7 @@ const Profile = () => {
     };
 
     return(
+        <>
         <div className="container">
             <h2>Profile Settings</h2>
             {imageUrl && <img src={imageUrl} alt="Profile preview" />}
@@ -33,6 +35,8 @@ const Profile = () => {
                 <button type="submit">Upload</button>
             </form>
         </div>
+        <Footer/>
+        </>
     );
 };
 

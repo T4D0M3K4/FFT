@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
+import Footer from "../../Components/Footer/Footer";
 
 const Budgets = () => {
     const [budgets, setBudgets] = useState([]);
@@ -54,6 +55,7 @@ const Budgets = () => {
     });
 
     return(
+        <>
         <div className='container'>
             <h2>Create a New Budget</h2>
             <form onSubmit={handleCreate}>
@@ -108,6 +110,8 @@ const Budgets = () => {
                 )}
             </table>
         </div>
+        <Footer/>
+        </>
     );
 };
 

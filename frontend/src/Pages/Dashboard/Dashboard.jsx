@@ -3,6 +3,7 @@ import api from "../../API/API";
 import {Bar} from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { AuthContext } from "../../Auth/AuthContext/AuthContext";
+import Footer from "../../Components/Footer/Footer";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -79,6 +80,7 @@ const Dashboard = () => {
                     <h2>Admin Dashboard</h2>
                     <p>Manage administrative functions:</p>
                 </div>}
+                <Footer/>
         </>
     );
 };

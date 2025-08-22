@@ -140,7 +140,7 @@ nav a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1a5ed9;
+  /* background-color: #1a5ed9; */
   margin: 0;
 }
 

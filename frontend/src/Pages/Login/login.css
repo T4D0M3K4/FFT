@@ -1,0 +1,22 @@
+
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    min-height: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    /* background-color: white; */
+    border-radius: 8px;
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
+}
+
+
+.login-form{
+    background-color: black;  
+    color: white;
+    padding: 2rem;
+    width: 50%;
+    border-radius: 8px;
+}

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
+import Footer from "../../Components/Footer/Footer";
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
@@ -61,7 +62,8 @@ const Transactions = () => {
     });
 
     return(
-        <div className='container'>
+        <>
+            <div className='container'>
             <h2>Add New Transaction</h2>
             <form onSubmit={handleCreate}>
 
@@ -132,7 +134,9 @@ const Transactions = () => {
                     </tr>
                 )}
             </table>
-        </div>
+            </div>
+            <Footer/>
+        </>
     );
 };
 
