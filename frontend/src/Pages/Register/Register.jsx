@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../../API/API";
 import { Link } from "react-router-dom";
+import "./register.css";
 
 const Register = () => {
 
@@ -29,8 +30,8 @@ const Register = () => {
     };
 
     return(
-        <div className='container'>
-            <form onSubmit={handleSubmit}>
+        <div className='register-container'>
+            <form onSubmit={handleSubmit} className="register-form">
                 <h1>Register</h1>
                 <label htmlFor="name">Name:</label>
                 <input id="name" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required/>
