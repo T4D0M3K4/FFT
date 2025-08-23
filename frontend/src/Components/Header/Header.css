@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width:inherit;
+    /* width:inherit; */
     /* background-color: black; */
 }
 
@@ -14,6 +14,11 @@
     gap: 2rem;
     /* background-color: black; */
     margin-bottom: 0;
+    padding:0;
+}
+
+.navbar>a{
+    padding: 10px;
 }
 
 div>h1{
@@ -25,5 +30,5 @@ div>h1{
 }
 
 #logout-btn:hover{
-    background-color: #1a5ed9;
+    background-color: #d91a1a;
 }
