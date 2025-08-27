@@ -12,6 +12,7 @@ header, footer {
   text-align: center;
 }
 
+
 header nav, footer {
   padding: 1rem;
 }
@@ -93,19 +94,19 @@ ul {
   margin: 0 auto;
 }
 
-.dashboard-cards {
+/* .dashboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
-}
-.card {
+} */
+/* .card {
   background-color: #f9fafb;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  border-left: 6px solid #2b7cff;
-}
+  border-left: 6px solid #2b7cff; 
+}*/
 .card h3 {
   margin: 0 0 0.5rem 0;
 }

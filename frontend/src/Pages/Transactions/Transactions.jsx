@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
 import Footer from "../../Components/Footer/Footer";
+import './transactions.css';
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
@@ -61,18 +62,30 @@ const Transactions = () => {
         return matchesSearch && matchesType && matchesMin && matchesMax && matchesStart && matchesEnd;
     });
 
+    const [transactionType, setTransactionType] = useState("Add");
+
+    const handleTransactionType = (e) => {
+        setTransactionType(e.target.value);
+    }
+
     return(
         <>
-            <div className='container'>
+        <input type="radio" name="transactionType" value="Add" onChange={handleTransactionType} checked={transactionType==="Add"?true:false}/>
+        <label htmlFor="transactionType">Add Transaction</label>
+
+        <input type="radio" name="transactionType" value="Search" onChange={handleTransactionType} />
+        <label htmlFor="transactionType">Search Transactions</label>
+
+        <div className='container'>
+
+            {transactionType==="Add"&&(<>
             <h2>Add New Transaction</h2>
             <form onSubmit={handleCreate}>
-
                 <label htmlFor="type">Type:</label>
                 <select id="type" value={newTransaction.TRANSACTION_TYPE} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_TYPE: e.target.value })}>
                     <option value="Income">Income</option>
                     <option value="Expense">Expense</option>
                 </select>
-
                 <label htmlFor="amount">Amount:</label>
                 <input id="amount" type="number" placeholder="Amount" value={newTransaction.TRANSACTION_AMOUNT} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_AMOUNT: e.target.value })} required />
 
@@ -84,9 +97,14 @@ const Transactions = () => {
                 <label htmlFor="tdate">Transaction Date:</label>
                 <input id="tdate" type="date" value={newTransaction.TRANSACTION_DATE} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_DATE: e.target.value })} required />
                 <button type="submit">Add Transaction</button>
-            </form><br /><hr />
+            </form>
+            </>)}
 
-            <h2>Search:</h2>
+            {
+
+                transactionType==="Search"&&
+                (<>
+                <h2>Search:</h2>
             <form>
                 <label htmlFor="desc">Description:</label>
                 <input id="desc" type="text" placeholder="Search by description" value={search} onChange={(e) => setSearch(e.target.value)}/>
@@ -112,6 +130,7 @@ const Transactions = () => {
                 <label htmlFor="to">To:</label>
                 <input id="to" type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
             </form><br /><hr />
+               
 
             <h2>Previous Transactions:</h2>
             <table>
@@ -134,8 +153,12 @@ const Transactions = () => {
                     </tr>
                 )}
             </table>
+             </>
+)}
             </div>
-            <Footer/>
+            <div className="footer-fixed-wrapper">
+                <Footer />
+            </div>
         </>
     );
 };
