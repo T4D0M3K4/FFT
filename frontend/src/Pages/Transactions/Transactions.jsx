@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
 import Footer from "../../Components/Footer/Footer";
-import './transactions.css';
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
