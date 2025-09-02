@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
 import Footer from "../../Components/Footer/Footer";
+import './transactions.css';
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
@@ -33,16 +34,41 @@ const Transactions = () => {
 
     const handleCreate = async (e) => {
         e.preventDefault();
-        await api.post('/transactions', newTransaction);
-        setNewTransaction({
-            TRANSACTION_TYPE: 'Expense',
-            TRANSACTION_AMOUNT: '',
-            TRANSACTION_DATE: '',
-            TRANSACTION_DESCRIPTION: '',
-            CATEGORY_ID: 1,
-            BUDGET_ID: 1
-        });
-        loadTransactions();
+        if (!newTransaction.TRANSACTION_AMOUNT || isNaN(Number(newTransaction.TRANSACTION_AMOUNT))) {
+            alert("Unesite ispravan iznos.");
+            return;
+        }
+        if (!newTransaction.TRANSACTION_DATE) {
+            alert("Unesite datum transakcije.");
+            return;
+        }
+        if (!newTransaction.TRANSACTION_DESCRIPTION) {
+            alert("Unesite opis transakcije.");
+            return;
+        }
+        const payload = {
+            ...newTransaction,
+            TRANSACTION_AMOUNT: Number(newTransaction.TRANSACTION_AMOUNT),
+        };
+        try {
+            await api.post('/transactions', payload);
+            setNewTransaction({
+                TRANSACTION_TYPE: 'Expense',
+                TRANSACTION_AMOUNT: '',
+                TRANSACTION_DATE: '',
+                TRANSACTION_DESCRIPTION: '',
+                CATEGORY_ID: 1,
+                BUDGET_ID: 1
+            });
+            loadTransactions();
+        } catch (err) {
+            console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                alert("Greška: " + err.response.data.message);
+            } else {
+                alert("Došlo je do greške pri dodavanju transakcije!");
+            }
+        }
     };
 
     const handleDelete = async (id) => {
@@ -69,15 +95,20 @@ const Transactions = () => {
 
     return(
         <>
-        <input type="radio" name="transactionType" value="Add" onChange={handleTransactionType} checked={transactionType==="Add"?true:false}/>
-        <label htmlFor="transactionType">Add Transaction</label>
+        <div className="selector">
+            <div className="">
+                <input type="radio" name="transactionType" value="Add" onChange={handleTransactionType} checked={transactionType==="Add"?true:false}/>
+                <label htmlFor="transactionType">Add Transaction</label>
+            </div>
 
-        <input type="radio" name="transactionType" value="Search" onChange={handleTransactionType} />
-        <label htmlFor="transactionType">Search Transactions</label>
+            <div className="">
+                <input type="radio" name="transactionType" value="Search" onChange={handleTransactionType} />
+                <label htmlFor="transactionType">Search Transactions</label>
+            </div>
+        </div>
 
-        <div className='container'>
-
-            {transactionType==="Add"&&(<>
+        <>
+            {transactionType==="Add"&&(<div className='add-container'>
             <h2>Add New Transaction</h2>
             <form onSubmit={handleCreate}>
                 <label htmlFor="type">Type:</label>
@@ -97,38 +128,44 @@ const Transactions = () => {
                 <input id="tdate" type="date" value={newTransaction.TRANSACTION_DATE} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_DATE: e.target.value })} required />
                 <button type="submit">Add Transaction</button>
             </form>
-            </>)}
-
-            {
-
-                transactionType==="Search"&&
-                (<>
+            <>
+             <div className="footer-fixed-wrapper">
+                <Footer />
+            </div>
+            </>
+            </div>
+        )}
+            </>
+            {transactionType==="Search"&&
+            (<>
+            <div className='search-container'>
                 <h2>Search:</h2>
-            <form>
-                <label htmlFor="desc">Description:</label>
-                <input id="desc" type="text" placeholder="Search by description" value={search} onChange={(e) => setSearch(e.target.value)}/>
-                
-                <label htmlFor="type">Type:</label>
-                <select id="type" value={filters.type} onChange={(e) => setFilters({...filters, type: e.target.value})}>
-                    <option value="">All Types</option>
-                    <option value="Income">Income</option>
-                    <option value="Expense">Expense</option>
-                </select>
+                <form>
+                    <label htmlFor="desc">Description:</label>
+                    <input id="desc" type="text" placeholder="Search by description" value={search} onChange={(e) => setSearch(e.target.value)}/>
+                    
+                    <label htmlFor="type">Type:</label>
+                    <select id="type" value={filters.type} onChange={(e) => setFilters({...filters, type: e.target.value})}>
+                        <option value="">All Types</option>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
 
-                <label htmlFor="min">Minimal Amount:</label>
-                <input id="min" type="number" placeholder="Min Amount" value={filters.minAmount} onChange={(e) => setFilters({...filters, minAmount: e.target.value})}/>
-                
-                <label htmlFor="max">Maximal Amount:</label>
-                <input id="max" type="number" placeholder="Max Amount" value={filters.maxAmount} onChange={(e) => setFilters({...filters, maxAmount: e.target.value})}/>
+                    <label htmlFor="min">Minimal Amount:</label>
+                    <input id="min" type="number" placeholder="Min Amount" value={filters.minAmount} onChange={(e) => setFilters({...filters, minAmount: e.target.value})}/>
+                    
+                    <label htmlFor="max">Maximal Amount:</label>
+                    <input id="max" type="number" placeholder="Max Amount" value={filters.maxAmount} onChange={(e) => setFilters({...filters, maxAmount: e.target.value})}/>
 
-                <label htmlFor="from">From:</label>
-                <input id="from" type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
+                    <label htmlFor="from">From:</label>
+                    <input id="from" type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
 
-                <label htmlFor="category">Category:(select)</label>
-                
-                <label htmlFor="to">To:</label>
-                <input id="to" type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
-            </form><br /><hr />
+                    <label htmlFor="category">Category:(select)</label>
+                    
+                    <label htmlFor="to">To:</label>
+                    <input id="to" type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
+            </form>
+            <br/><hr/>
                
 
             <h2>Previous Transactions:</h2>
@@ -141,8 +178,8 @@ const Transactions = () => {
                     <th>Type</th>
                     <th></th>
                 </tr>
-                {filterTransactions && filterTransactions.map(transaction => 
-                    <tr>
+                {filterTransactions && filterTransactions.map((transaction, index)  => 
+                    <tr key={index}>
                         <td>{transaction.TRANSACTION_DATE}</td>
                         <td>{transaction.TRANSACTION_AMOUNT}</td>
                         <td>{transaction.TRANSACTION_DESCRIPTION}</td>
@@ -151,13 +188,15 @@ const Transactions = () => {
                         <td><button onClick={() => handleDelete(transaction.TRANSACTION_ID)}>Delete</button></td>
                     </tr>
                 )}
-            </table>
-             </>
-)}
-            </div>
-            <div className="footer-fixed-wrapper">
-                <Footer />
-            </div>
+            </table>         
+             </div>
+            <Footer />
+            </>
+            )}
+            
+        
+            
+            
         </>
     );
 };

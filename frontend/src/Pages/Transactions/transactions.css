@@ -1,0 +1,46 @@
+.add-container{
+  max-width: 800px;
+  min-height: auto;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-container {
+  max-width: 800px;
+  min-height: auto;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.selector{
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-evenly;
+    align-items: center;
+    /* background-color: black; */
+}
+
+div>label{
+    font-size: larger;
+}
+
+div>input[type="radio"]{
+    border: 0;
+    width: 1em; 
+    height: 1em;
+}
+
+.footer-fixed-wrapper{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
