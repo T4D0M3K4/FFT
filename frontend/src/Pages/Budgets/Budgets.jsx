@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
 import Footer from "../../Components/Footer/Footer";
+import './budgets.css';
 
 const Budgets = () => {
     const [budgets, setBudgets] = useState([]);
@@ -54,9 +55,30 @@ const Budgets = () => {
         return matchMin && matchMax && matchStart && matchEnd;
     });
 
+    const [budgetType, setBudgetType]=useState("Create");
+
+    const handleBudgetType = (e) => {
+        setBudgetType(e.target.value);
+    }
+
     return(
         <>
-        <div className='container'>
+
+        <div className="selector">
+            <div className="">
+                <input type="radio" name="budgetType" value="Create" onChange={handleBudgetType} checked={budgetType==="Create"?true:false}/>
+                <label htmlFor="budgetType">Add Budget</label>
+            </div>
+
+            <div className="">
+                <input type="radio" name="budgetType" value="Search" onChange={handleBudgetType} />
+                <label htmlFor="budgetType">Search Budgets</label>
+            </div>
+        </div>
+        
+        <>
+        {budgetType==="Create"&&(
+        <div className="create-container">
             <h2>Create a New Budget</h2>
             <form onSubmit={handleCreate}>
                 <label htmlFor="name">Budget Name:</label>
@@ -73,8 +95,16 @@ const Budgets = () => {
                 <label htmlFor="category">Category:</label>
 
                 <button type="submit">Add Budget</button>
-            </form><br /><hr />
+            </form>
 
+            <div className="footer-fixed-wrapper">
+                <Footer />
+            </div>
+
+            </div>)}
+            </>
+{budgetType==="Search"&&(<>
+        <div className="search-container">
             <h2>Search:</h2>
             <form>
                 <label htmlFor="min">Minimal Amount:</label>
@@ -109,8 +139,9 @@ const Budgets = () => {
                     </tr>
                 )}
             </table>
-        </div>
+            </div>
         <Footer/>
+        </>)}
         </>
     );
 };

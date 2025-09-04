@@ -106,7 +106,6 @@ const Transactions = () => {
                 <label htmlFor="transactionType">Search Transactions</label>
             </div>
         </div>
-
         <>
             {transactionType==="Add"&&(<div className='add-container'>
             <h2>Add New Transaction</h2>
@@ -193,10 +192,7 @@ const Transactions = () => {
             <Footer />
             </>
             )}
-            
-        
-            
-            
+
         </>
     );
 };
