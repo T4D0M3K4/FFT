@@ -97,9 +97,8 @@ const Budgets = () => {
                 <button type="submit">Add Budget</button>
             </form>
 
-            <div className="footer-fixed-wrapper">
-                <Footer />
-            </div>
+            
+                
 
             </div>)}
             </>
@@ -140,8 +139,8 @@ const Budgets = () => {
                 )}
             </table>
             </div>
-        <Footer/>
         </>)}
+        <Footer/>
         </>
     );
 };

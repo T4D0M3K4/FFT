@@ -39,11 +39,11 @@ div>input[type="radio"]{
     height: 1em;
 }
 
-.footer-fixed-wrapper{
+/* .footer-fixed-wrapper{
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     width: 100%;
     z-index: 100;
-}
+} */
