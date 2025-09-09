@@ -80,7 +80,7 @@ const Budgets = () => {
         {budgetType==="Create"&&(
         <div className="create-container">
             <h2>Create a New Budget</h2>
-            <form onSubmit={handleCreate}>
+            <form onSubmit={handleCreate} className="add-form">
                 <label htmlFor="name">Budget Name:</label>
 
                 <label htmlFor="amount">Amount:</label>
