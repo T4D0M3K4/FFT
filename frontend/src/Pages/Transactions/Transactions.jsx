@@ -143,11 +143,10 @@ const Transactions = () => {
                 <input id="tdate" type="date" value={newTransaction.TRANSACTION_DATE} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_DATE: e.target.value })} required />
                 <button type="submit">Add Transaction</button>
             </form>
-            <>
-             <div className="footer-fixed-wrapper">
-                <Footer />
-            </div>
-            </>
+           
+                
+            
+           
             </div>
         )}
             </>
@@ -212,10 +211,9 @@ const Transactions = () => {
                 )}
             </table>         
              </div>
-            <Footer />
             </>
             )}
-
+            <Footer />
         </>
     );
 };
