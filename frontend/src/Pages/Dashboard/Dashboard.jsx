@@ -24,20 +24,32 @@ const Dashboard = () => {
             .then(res => setBills(res.data));
     }, []);
 
-    const filteredExpenseTransactions = transactions.filter(transaction => transaction.TRANSACTION_TYPE === 'Expense');
-    const filteredIncomeTransactions = transactions.filter(transaction => transaction.TRANSACTION_TYPE === 'Income');
+    const dates = [...new Set(transactions.map(t => t.TRANSACTION_DATE))]
+            .sort((a, b) => new Date(a) - new Date(b));
+
+    const incomeByDate = dates.map(date => {
+        const income = transactions.filter(t => t.TRANSACTION_DATE === date && t.TRANSACTION_TYPE === 'Income')
+                                    .reduce((sum, t) => sum + t.TRANSACTION_AMOUNT, 0);
+        return income;
+    })
+
+    const expenseByDate = dates.map(date => {
+        const expense = transactions.filter(t => t.TRANSACTION_DATE === date && t.TRANSACTION_TYPE === 'Expense')
+                                    .reduce((sum, t) => sum + t.TRANSACTION_AMOUNT, 0);
+        return expense;
+    })
 
     const transactionsData = {
-        labels: transactions.map(transaction => transaction.TRANSACTION_DATE),
+        labels: dates,
         datasets: [
             {
                 label: 'Income',
-                data: filteredIncomeTransactions.map(transaction => transaction.TRANSACTION_AMOUNT),
+                data: incomeByDate,
                 backgroundColor: 'green'
             },
             {
                 label: 'Expense',
-                data: filteredExpenseTransactions.map(transaction => transaction.TRANSACTION_AMOUNT),
+                data: expenseByDate,
                 backgroundColor: 'red'
             }
         ]
