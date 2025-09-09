@@ -5,11 +5,11 @@ const role = require('./../middlewares/role-middleware');
 const categoryRouter = express.Router();
 
 categoryRouter.route('')
-    .get(auth, role('Admin'), categoryController.getAll)
+    .get(auth, categoryController.getAll)
     .post(auth, role('Admin'), categoryController.create)
 
 categoryRouter.route('/:id')
-    .get(auth, role('Admin'), categoryController.getById)
+    .get(auth, categoryController.getById)
     .put(auth, role('Admin'), categoryController.update)
     .delete(auth, categoryController.remove)
 

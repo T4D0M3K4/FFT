@@ -14,7 +14,7 @@ const create = async (userId, body) => {
 
 const getAll = async (userId) => {
     try {
-        const [results, metadata] = await dbConfig.query('SELECT * FROM fft_transaction WHERE USER_ID = ?', {
+        const [results, metadata] = await dbConfig.query('SELECT * FROM fft_transaction t INNER JOIN fft_category c on c.CATEGORY_ID=t.CATEGORY_ID WHERE USER_ID = ? AND CATEGORY_TYPE LIKE \'%Transaction%\'', {
             replacements: [userId]
         });
         return results;

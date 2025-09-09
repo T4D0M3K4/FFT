@@ -5,13 +5,14 @@ import './transactions.css';
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
+    const [categories, setCategories]=useState([]);
     const [newTransaction, setNewTransaction] = useState({
             TRANSACTION_TYPE: 'Expense',
             TRANSACTION_AMOUNT: '',
             TRANSACTION_DATE: '',
             TRANSACTION_DESCRIPTION: '',
             CATEGORY_ID: 1,
-            BUDGET_ID: 1
+            BUDGET_ID: 11
         });
 
     const [search, setSearch] = useState('');
@@ -19,7 +20,8 @@ const Transactions = () => {
         type: '',
         minAmount: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        category: ''
     });
 
     const loadTransactions = async () => {
@@ -28,8 +30,15 @@ const Transactions = () => {
                 .catch(err => console.error(err));
     }
 
+    const loadCategories=async ()=>{
+        await api.get('/categories').
+        then(res=>setCategories(res.data)).
+        catch(err=>console.error(err));
+    }
+
     useEffect(() => {
         loadTransactions();
+        loadCategories();
     }, []);
 
     const handleCreate = async (e) => {
@@ -52,6 +61,7 @@ const Transactions = () => {
         };
         try {
             await api.post('/transactions', payload);
+            console.log(newTransaction.CATEGORY_ID);
             setNewTransaction({
                 TRANSACTION_TYPE: 'Expense',
                 TRANSACTION_AMOUNT: '',
@@ -83,8 +93,9 @@ const Transactions = () => {
         const matchesMax = !filters.maxAmount || transaction.TRANSACTION_AMOUNT <= parseFloat(filters.maxAmount);
         const matchesStart = !filters.startDate || transaction.TRANSACTION_DATE >= filters.startDate;
         const matchesEnd = !filters.endDate || transaction.TRANSACTION_DATE <= filters.endDate;
+        const matchesCat = !filters.category || transaction.CATEGORY_NAME === filters.category;
 
-        return matchesSearch && matchesType && matchesMin && matchesMax && matchesStart && matchesEnd;
+        return matchesSearch && matchesType && matchesMin && matchesMax && matchesStart && matchesEnd && matchesCat;
     });
 
     const [transactionType, setTransactionType] = useState("Add");
@@ -118,7 +129,12 @@ const Transactions = () => {
                 <label htmlFor="amount">Amount:</label>
                 <input id="amount" type="number" placeholder="Amount" value={newTransaction.TRANSACTION_AMOUNT} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_AMOUNT: e.target.value })} required />
 
-                <label htmlFor="categ">Category:(select)</label>
+                <label htmlFor="categ">Category:</label>
+                <select id="categ" onChange={(e)=>setNewTransaction({...newTransaction, CATEGORY_ID:parseInt(e.target.value)})}>
+                    {categories.filter((cat)=>cat.CATEGORY_TYPE==='Transaction').map(category=>   
+                        <option value={category.CATEGORY_ID}>{category.CATEGORY_NAME}</option>                  
+                    )}    
+                </select>
                 
                 <label htmlFor="desc">Description:</label>
                 <input id="desc" placeholder="Description" value={newTransaction.TRANSACTION_DESCRIPTION} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_DESCRIPTION: e.target.value })} />
@@ -159,7 +175,14 @@ const Transactions = () => {
                     <label htmlFor="from">From:</label>
                     <input id="from" type="date" value={filters.startDate} onChange={(e) => setFilters({...filters, startDate: e.target.value})} />
 
-                    <label htmlFor="category">Category:(select)</label>
+                    <label htmlFor="categ">Category:</label>
+                    <select id="categ" value={filters.category} onChange={(e)=>setFilters({...filters, category:e.target.value})}>
+                        <option value="">All Types</option>
+                    {categories.filter((cat)=>cat.CATEGORY_TYPE==='Transaction').map(category=>   
+                        <option value={category.CATEGORY_NAME}>{category.CATEGORY_NAME}</option>                  
+                    )}    
+                    </select>
+                    
                     
                     <label htmlFor="to">To:</label>
                     <input id="to" type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
@@ -182,7 +205,7 @@ const Transactions = () => {
                         <td>{transaction.TRANSACTION_DATE}</td>
                         <td>{transaction.TRANSACTION_AMOUNT}</td>
                         <td>{transaction.TRANSACTION_DESCRIPTION}</td>
-                        <td>Category</td>
+                        <td>{transaction.CATEGORY_NAME}</td>
                         <td>{transaction.TRANSACTION_TYPE}</td>
                         <td><button onClick={() => handleDelete(transaction.TRANSACTION_ID)}>Delete</button></td>
                     </tr>
