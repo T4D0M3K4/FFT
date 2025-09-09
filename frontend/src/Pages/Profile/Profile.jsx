@@ -4,10 +4,11 @@ import Footer from "../../Components/Footer/Footer";
 
 const Profile = () => {
     const [file, setFile] = useState(null);
-    const [userId, setUserId] = useState(1);
+    // const userId = useState(1);
     const [imageUrl, setImageUrl] = useState(null);
 
     const user=JSON.parse(localStorage.getItem("user"));
+    const userId=user.USER_ID;
 
     const handleUpload = async (e) => {
         e.preventDefault();
@@ -32,12 +33,6 @@ const Profile = () => {
             <h2>Profile Settings</h2>
             <h1>{user.USER_NAME} {user.USER_SURNAME}</h1>
             <h2>{user.USER_EMAIL}</h2>
-            {imageUrl && <img src={imageUrl} alt="Profile preview" />}
-            <form onSubmit={handleUpload} encType="multipart/form-data">
-                <label htmlFor="profile">Choose new profile picture:</label>
-                <input type="file" id="profile" onChange={(e) => setFile(e.target.files[0])} required/>
-                <button type="submit">Upload</button>
-            </form>
         </div>
         <Footer/>
         </>
