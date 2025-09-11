@@ -215,6 +215,7 @@ const Transactions = () => {
                     <th>Amount</th>
                     <th>Descripton</th>
                     <th>Category</th>
+                    <th>Budget</th>
                     <th>Type</th>
                     <th></th>
                 </tr>
@@ -224,6 +225,7 @@ const Transactions = () => {
                         <td>{transaction.TRANSACTION_AMOUNT}</td>
                         <td>{transaction.TRANSACTION_DESCRIPTION}</td>
                         <td>{transaction.CATEGORY_NAME}</td>
+                        <td>{transaction.BUDGET_NAME}</td>
                         <td>{transaction.TRANSACTION_TYPE}</td>
                         <td><button onClick={() => handleDelete(transaction.TRANSACTION_ID)}>Delete</button></td>
                     </tr>
