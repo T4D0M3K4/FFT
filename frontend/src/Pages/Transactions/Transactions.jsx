@@ -6,6 +6,7 @@ import './transactions.css';
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
     const [categories, setCategories]=useState([]);
+    const [budgets, setBudgets]=useState([]);
     const [newTransaction, setNewTransaction] = useState({
             TRANSACTION_TYPE: 'Expense',
             TRANSACTION_AMOUNT: '',
@@ -30,15 +31,22 @@ const Transactions = () => {
                 .catch(err => console.error(err));
     }
 
-    const loadCategories=async ()=>{
+    const loadCategories = async ()=> {
         await api.get('/categories').
         then(res=>setCategories(res.data)).
         catch(err=>console.error(err));
     }
 
+    const loadBudgets = async () => {
+        (await api.get('/budgets')).
+        then(res => setBudgets(res.data)).
+        catch(err => console.error(err));
+    }
+
     useEffect(() => {
         loadTransactions();
         loadCategories();
+        loadBudgets();
     }, []);
 
     const handleCreate = async (e) => {
@@ -135,7 +143,14 @@ const Transactions = () => {
                         <option value={category.CATEGORY_ID}>{category.CATEGORY_NAME}</option>                  
                     )}    
                 </select>
-                
+
+                <label htmlFor="budget">Budget:</label>
+                <select id="budget" onChange={(e)=>setNewTransaction({...newTransaction, BUDGET_ID:parseInt(e.target.value)})}>
+                    {budgets.map(budget=>   
+                        <option value={budget.BUDGET_ID}>{budget.BUDGET_NAME}</option>                  
+                    )}    
+                </select>
+
                 <label htmlFor="desc">Description:</label>
                 <input id="desc" placeholder="Description" value={newTransaction.TRANSACTION_DESCRIPTION} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_DESCRIPTION: e.target.value })} />
 
