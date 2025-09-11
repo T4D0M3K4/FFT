@@ -5,28 +5,41 @@ import './budgets.css';
 
 const Budgets = () => {
     const [budgets, setBudgets] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [newBudget, setNewBudget] = useState({
+        BUDGET_NAME: '',
         BUDGET_AMOUNT: '',
         BUDGET_STARTDATE: '',
         BUDGET_ENDDATE: '',
         CATEGORY_ID: 1
     });
 
+    const [search, setSearch] = useState('');
+
     const [filters, setFilters] = useState({
         minAmount: '',
         maxAmount: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        category:'',
+        name:''
     });
 
-    const loadBudgets = () => {
-        api.get('/budgets')
+    const loadBudgets = async () => {
+        await api.get('/budgets')
             .then(res => setBudgets(res.data))
             .catch(err => console.error(err));
     };
 
+    const loadCategories = async () => {
+        await api.get('/categories')
+        .then(res => setCategories(res.data))
+        .catch(err => console.error(err));
+    };
+
     useEffect(() => {
         loadBudgets();
+        loadCategories();
     }, []);
 
     const handleCreate = async (e) => {
@@ -47,12 +60,14 @@ const Budgets = () => {
     };
 
     const filteredBudgets = budgets.filter(budget => {
+        const matchName = budget.BUDGET_NAME.toLowerCase().includes(search.toLowerCase());
         const matchMin = !filters.minAmount || budget.BUDGET_AMOUNT >= parseFloat(filters.minAmount);
         const matchMax = !filters.maxAmount || budget.BUDGET_AMOUNT <= parseFloat(filters.maxAmount);
         const matchStart = !filters.startDate || budget.BUDGET_STARTDATE >= filters.startDate;
         const matchEnd = !filters.endDate || budget.BUDGET_ENDDATE <= filters.endDate;
+        const matchCategory = !filters.category || budget.CATEGORY_NAME === filters.category;
 
-        return matchMin && matchMax && matchStart && matchEnd;
+        return matchMin && matchMax && matchStart && matchEnd && matchCategory && matchName;
     });
 
     const [budgetType, setBudgetType]=useState("Create");
@@ -81,7 +96,9 @@ const Budgets = () => {
         <div className="create-container">
             <h2>Create a New Budget</h2>
             <form onSubmit={handleCreate} className="add-form">
+
                 <label htmlFor="name">Budget Name:</label>
+                <input id="name" placeholder="Name" value={newBudget.BUDGET_NAME} onChange={(e) => setNewBudget({ ...newBudget, BUDGET_NAME: e.target.value })} />
 
                 <label htmlFor="amount">Amount:</label>
                 <input id="amount" type="number" placeholder="Amount" value={newBudget.BUDGET_AMOUNT} onChange={(e) => setNewBudget({...newBudget, BUDGET_AMOUNT: e.target.value})} required/>
@@ -93,12 +110,14 @@ const Budgets = () => {
                 <input id="end" type="date" value={newBudget.BUDGET_ENDDATE} onChange={(e) => setNewBudget({...newBudget, BUDGET_ENDDATE: e.target.value})} required />
                 
                 <label htmlFor="category">Category:</label>
+                <select id="category" onChange={(e)=>setNewBudget({...newBudget, CATEGORY_ID:parseInt(e.target.value)})}>
+                    {categories.filter((cat)=>cat.CATEGORY_TYPE==='Budget').map(category=>   
+                        <option value={category.CATEGORY_ID}>{category.CATEGORY_NAME}</option>                  
+                    )}    
+                </select>
 
                 <button type="submit">Add Budget</button>
             </form>
-
-            
-                
 
             </div>)}
             </>
@@ -106,6 +125,9 @@ const Budgets = () => {
         <div className="search-container">
             <h2>Search:</h2>
             <form>
+                <label htmlFor="name">Budget Name:</label>
+                <input id="name" placeholder="Search by name" value={search} onChange={(e) => setSearch(e.target.value)} />
+
                 <label htmlFor="min">Minimal Amount:</label>
                 <input id="min" type="number" placeholder="Min Amount" value={filters.minAmount} onChange={(e) => setFilters({...filters, minAmount: e.target.value})} />
                 
@@ -117,6 +139,15 @@ const Budgets = () => {
                 
                 <label htmlFor="to">To:</label>
                 <input id="to" type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
+
+                <label htmlFor="categ">Category:</label>
+                <select id="categ" value={filters.category} onChange={(e)=>setFilters({...filters, category:e.target.value})}>
+                <option value="">All Types</option>
+                {categories.filter((cat)=>cat.CATEGORY_TYPE==='Budget').map(category=>   
+                    <option value={category.CATEGORY_NAME}>{category.CATEGORY_NAME}</option>                  
+                )}    
+                </select>
+
             </form><br /><hr />
             
             <h2>Active Budgets:</h2>
@@ -126,14 +157,16 @@ const Budgets = () => {
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Amount</th>
+                    <th>Category</th>
                     <th></th>
                 </tr>
                 {filteredBudgets && filteredBudgets.map(budget => 
                     <tr>
-                        <td>Name</td>
+                        <td>{budget.BUDGET_NAME}</td>
                         <td>{budget.BUDGET_STARTDATE}</td>
                         <td>{budget.BUDGET_ENDDATE}</td>
                         <td>{budget.BUDGET_AMOUNT}</td>
+                        <td>{budget.CATEGORY_NAME}</td>
                         <td><button onClick={() => handleDelete(budget.BUDGET_ID)}>Delete</button></td>
                     </tr>
                 )}

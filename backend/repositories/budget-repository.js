@@ -2,8 +2,8 @@ const dbConfig = require('./../config/db-config');
 
 const create = async (userId, body) => {
     try {
-        const [results, metadata] = await dbConfig.query('INSERT INTO fft_budget(BUDGET_AMOUNT, BUDGET_STARTDATE, BUDGET_ENDDATE, CATEGORY_ID, USER_ID) VALUES (?, ?, ?, ?, ?)', {
-            replacements: [body.BUDGET_AMOUNT, body.BUDGET_STARTDATE, body.BUDGET_ENDDATE, body.CATEGORY_ID, userId]
+        const [results, metadata] = await dbConfig.query('INSERT INTO fft_budget(BUDGET_NAME, BUDGET_AMOUNT, BUDGET_STARTDATE, BUDGET_ENDDATE, CATEGORY_ID, USER_ID) VALUES (?, ?, ?, ?, ?, ?)', {
+            replacements: [body.BUDGET_NAME,body.BUDGET_AMOUNT, body.BUDGET_STARTDATE, body.BUDGET_ENDDATE, body.CATEGORY_ID, userId]
         });
         return results;
     }
@@ -15,7 +15,9 @@ const create = async (userId, body) => {
 
 const getAll = async (userId) => {
     try {
-        const [results, metadata] = await dbConfig.query('SELECT * FROM fft_budget WHERE USER_ID = ?', {
+        const [results, metadata] = await dbConfig.query('SELECT * FROM fft_budget b \
+                                                           INNER JOIN fft_category c ON c.CATEGORY_ID=b.CATEGORY_ID \
+                                                            WHERE USER_ID = ? AND c.CATEGORY_TYPE LIKE \'%Budget%\'', {
             replacements: [userId]
         });
         return results;
