@@ -23,7 +23,7 @@ const Transactions = () => {
         startDate: '',
         endDate: '',
         category: '',
-        budget:''
+        budget: ''
     });
 
     const loadTransactions = async () => {

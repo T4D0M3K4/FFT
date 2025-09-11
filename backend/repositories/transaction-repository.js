@@ -55,7 +55,7 @@ const update = async (userId, id, body) => {
 const remove = async (userId, id) => {
     try {
         const [results, metadata] = await dbConfig.query('DELETE FROM fft_transaction WHERE TRANSACTION_ID = ? AND USER_ID = ?', {
-            replacements: [id, userId]
+            replacements: [parseInt(id), userId]
         });
         return results;
     }
