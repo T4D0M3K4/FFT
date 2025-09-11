@@ -22,7 +22,8 @@ const Transactions = () => {
         minAmount: '',
         startDate: '',
         endDate: '',
-        category: ''
+        category: '',
+        budget:''
     });
 
     const loadTransactions = async () => {
@@ -38,7 +39,7 @@ const Transactions = () => {
     }
 
     const loadBudgets = async () => {
-        (await api.get('/budgets')).
+        await api.get('/budgets').
         then(res => setBudgets(res.data)).
         catch(err => console.error(err));
     }
@@ -102,8 +103,8 @@ const Transactions = () => {
         const matchesStart = !filters.startDate || transaction.TRANSACTION_DATE >= filters.startDate;
         const matchesEnd = !filters.endDate || transaction.TRANSACTION_DATE <= filters.endDate;
         const matchesCat = !filters.category || transaction.CATEGORY_NAME === filters.category;
-
-        return matchesSearch && matchesType && matchesMin && matchesMax && matchesStart && matchesEnd && matchesCat;
+        const matchesBudget = !filters.budget || transaction.BUDGET_ID === filters.budget;
+        return matchesSearch && matchesType && matchesMin && matchesMax && matchesStart && matchesEnd && matchesCat && matchesBudget;
     });
 
     const [transactionType, setTransactionType] = useState("Add");
@@ -157,11 +158,7 @@ const Transactions = () => {
                 <label htmlFor="tdate">Transaction Date:</label>
                 <input id="tdate" type="date" value={newTransaction.TRANSACTION_DATE} onChange={(e) => setNewTransaction({ ...newTransaction, TRANSACTION_DATE: e.target.value })} required />
                 <button type="submit">Add Transaction</button>
-            </form>
-           
-                
-            
-           
+            </form>           
             </div>
         )}
             </>
@@ -197,6 +194,13 @@ const Transactions = () => {
                     )}    
                     </select>
                     
+                    <label htmlFor="budget">Budget:</label>
+                    <select id="budget" value={filters.budget} onChange={(e)=>setFilters({...filters, budget:parseInt(e.target.value)})}>
+                        <option value="">All Types</option>
+                    {budgets.map((budget)=>   
+                        <option value={budget.BUDGET_ID}>{budget.BUDGET_NAME}</option>                  
+                    )}    
+                    </select>
                     
                     <label htmlFor="to">To:</label>
                     <input id="to" type="date" value={filters.endDate} onChange={(e) => setFilters({...filters, endDate: e.target.value})} />
