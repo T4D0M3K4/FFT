@@ -12,7 +12,6 @@ const Profile = () => {
         newPassword:'',
     });
 
-    const [btnPass, setPass] = useState(false);    
 
     const handleUpdate = async (e) => {
         e.preventDefault();

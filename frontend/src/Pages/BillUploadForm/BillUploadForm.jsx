@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import api from "../../API/API";
 
 const BillUploadForm = () => {
@@ -27,10 +27,20 @@ const BillUploadForm = () => {
             setBudgetId(1);
             setUserId(1);
         }
-        catch (err) {
+        catch {
             alert('Upload failed!');
         }
     };
+
+    const [users, setUsers] = useState([]);
+
+    const loadUsers = () => {
+        api.get('/users').then(res => setUsers(res.data));
+    };
+
+    useEffect(() => {
+        loadUsers();
+    },[]);
 
     return(
         <div className='container'>
@@ -45,11 +55,16 @@ const BillUploadForm = () => {
                 <label htmlFor="amount">Amount:</label>
                 <input id="amount" type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required/>
                 
-                <label htmlFor="budget">Budget:(Treba select)</label>
-                <input id="budget" type="number" placeholder="Budget ID" value={budgetId} onChange={(e) => setBudgetId(e.target.value)} required/>
-                
-                <label htmlFor="user">User:(Treba select)</label>
-                <input type="number" placeholder="User ID" value={userId} onChange={(e) => setUserId(e.target.value)} required/>
+                <label htmlFor="user">User:</label>
+                <select id="user" value={userId} onChange={(e) => setUserId(e.target.value)} required>
+                    <option value="" disabled>Select User</option>
+                    {users.map(user => (
+                        <option key={user.USER_ID} value={user.USER_ID}>
+                            {user.USER_EMAIL}
+                        </option>
+                    ))}
+                </select>
+
                 <button type="submit">Upload</button>
             </form>
         </div>
