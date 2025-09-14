@@ -57,7 +57,6 @@ const BillUploadForm = () => {
                 
                 <label htmlFor="user">User:</label>
                 <select id="user" value={userId} onChange={(e) => setUserId(e.target.value)} required>
-                    <option value="" disabled>Select User</option>
                     {users.map(user => (
                         <option key={user.USER_ID} value={user.USER_ID}>
                             {user.USER_EMAIL}
