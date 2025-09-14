@@ -50,9 +50,8 @@ const Bills = () => {
             <h2>Search Bills:</h2>
             <form>
                 
-                <label htmlFor="name">Budget Name:</label>
+                <label htmlFor="name">Bill Name:</label>
                 <input id="name" placeholder="Name" value={filters.file}  onChange={(e) => setFilters({ ...filters, file: e.target.value })} />
-
 
                 <label htmlFor="status">Bill Status:</label>
                 <select id="status" value={filters.billStatus} onChange={(e) => setFilters({...filters, billStatus: e.target.value})}>
