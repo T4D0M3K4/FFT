@@ -32,7 +32,7 @@ function App() {
         <Route path="/bills" element={<ProtectedRoute role='Regular'><Bills/></ProtectedRoute>}/>
         <Route path="/bills/upload" element={<ProtectedRoute role='Admin'><BillUploadForm/></ProtectedRoute>}/>
         <Route path="/budgets" element={<ProtectedRoute role='Regular'><Budgets/></ProtectedRoute>}/>
-        <Route path="/categories" element={<ProtectedRoute role='Regular'><Categories/></ProtectedRoute>}/>
+        <Route path="/categories" element={<ProtectedRoute role='Admin'><Categories/></ProtectedRoute>}/>
         <Route path="/profile" element={<ProtectedRoute role='Regular'><Profile/></ProtectedRoute>}/>
         <Route path="/users" element={<ProtectedRoute role='Admin'><Users/></ProtectedRoute>}/>
       </Routes>
