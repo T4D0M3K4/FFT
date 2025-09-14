@@ -5,6 +5,7 @@ import Footer from "../../Components/Footer/Footer";
 const Bills = () => {
     const [bills, setBills] = useState([]);
     const [filters, setFilters] = useState({
+        file:'',
         billStatus: '',
         minAmount: '',
         maxAmount: '',
@@ -38,8 +39,9 @@ const Bills = () => {
         const matchMax = !filters.maxAmount || bill.BILL_AMOUNT <= parseFloat(filters.maxAmount);
         const matchStart = !filters.startDate || bill.BILL_DUEDATE >= filters.startDate;
         const matchEnd = !filters.endDate || bill.BILL_DUEDATE <= filters.endDate;
+        const matchFile = !filters.file || bill.BILL_FILEPATH.split("/").pop().toLowerCase().includes(filters.file.toLowerCase());
 
-        return matchStatus && matchMin && matchMax && matchStart && matchEnd;
+        return matchStatus && matchMin && matchMax && matchStart && matchEnd && matchFile;
     });
 
     return(
@@ -47,6 +49,11 @@ const Bills = () => {
         <div className='container'>
             <h2>Search Bills:</h2>
             <form>
+                
+                <label htmlFor="name">Budget Name:</label>
+                <input id="name" placeholder="Name" value={filters.file}  onChange={(e) => setFilters({ ...filters, file: e.target.value })} />
+
+
                 <label htmlFor="status">Bill Status:</label>
                 <select id="status" value={filters.billStatus} onChange={(e) => setFilters({...filters, billStatus: e.target.value})}>
                     <option value="">All Statuses</option>
@@ -80,7 +87,7 @@ const Bills = () => {
                 </tr>
                 {filteredBills && filteredBills.map(bill =>
                     <tr>
-                        <td>File</td>
+                        <td>{bill.BILL_FILEPATH.split("/").pop()}</td>
                         <td>{bill.BILL_DUEDATE}</td>
                         <td>{bill.BILL_AMOUNT}</td>
                         <td>{bill.BILL_STATUS}</td>
