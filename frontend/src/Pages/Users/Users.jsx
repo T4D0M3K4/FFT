@@ -3,7 +3,12 @@ import api from  '../../API/API';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
-    const [editing, setEditing] = useState(null);
+    const [editUser, setEditUser] = useState({
+        newName:'',
+        newSurname:'',
+        newEmail:'',
+        newPassword:''
+    })
     const [updatedRole, setUpdatedRole] = useState('Regular');
 
     const loadUsers = () => {
@@ -14,6 +19,15 @@ const Users = () => {
         loadUsers();
     }, []);
 
+    const handleEdit = async (id) => {
+        editUser.newName = '';
+        editUser.newSurname = '';
+        editUser.newEmail = '';
+        editUser.newPassword = '';
+        await api.put(`/users/${id}`);
+        loadUsers();
+    }
+
     const handleDelete = async (id) => {
         await api.delete(`/users/${id}`);
         loadUsers();
@@ -21,7 +35,6 @@ const Users = () => {
 
     const handleRoleChange = async (id) => {
         await api.put(`/users/${id}`, {USER_ROLE: updatedRole});
-        setEditing(null);
         loadUsers();
     };
 
@@ -37,6 +50,7 @@ const Users = () => {
                     <th>Role</th>
                     <th>Change Role</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 {users.map(user => user.USER_ID !== JSON.parse(localStorage.getItem('user')).USER_ID &&
                     <tr>
@@ -51,6 +65,7 @@ const Users = () => {
                                 <option value="Admin">Admin</option>
                             </select>
                         </td>
+                        <td><button onClick={() => handleEdit(user.USER_ID)}>Edit</button></td>
                         <td><button onClick={() => handleDelete(user.USER_ID)}>Delete</button></td>
                     </tr>
                 )}

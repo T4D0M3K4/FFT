@@ -1,12 +1,12 @@
 .card-links{
     display: flex;
     flex-direction: column;
-    margin-top: 80px;
+    margin-top: 19px;
 }
 
 .card-links > button{
     margin-bottom: 50px;
-    height: 100px;
+    height: 80px;
     margin-left: 80px;
     font-size: 30px;
 }
@@ -15,6 +15,7 @@
   max-width: 800px;
   /* min-height: auto; */
   margin: 2.6rem auto;
+  margin-top: 0;
   padding: 1.5rem;
   background-color: white;
   border-radius: 8px;
