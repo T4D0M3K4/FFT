@@ -4,6 +4,8 @@ import {Bar} from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { AuthContext } from "../../Auth/AuthContext/AuthContext";
 import Footer from "../../Components/Footer/Footer";
+import { Link } from "react-router-dom";
+import './dashboard.css';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -88,9 +90,20 @@ const Dashboard = () => {
             <h2>Bills</h2>
             <Bar data={billsData}/>
         </div>}
-        {user.USER_ROLE === 'Admin' && <div className="container">
+        {user.USER_ROLE === 'Admin' && <div className="admin-container">
                     <h2>Admin Dashboard</h2>
                     <p>Manage administrative functions:</p>
+                    <div className="card-links">
+                        <button onClick={() => window.location.href = '/categories'}style={{"margin-right":"80px"}} >
+                            Manage categories
+                        </button>
+                        <button onClick={() => window.location.href = '/bills/upload'}style={{"margin-right":"80px"}}>
+                            Upload bills
+                        </button>
+                        <button onClick={() => window.location.href = '/users'} style={{"margin-right":"80px"}}>
+                            Manage users
+                        </button>
+                    </div>
                 </div>}
                 <Footer/>
         </>

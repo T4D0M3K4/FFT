@@ -1,0 +1,22 @@
+.card-links{
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.card-links > button{
+    margin-bottom: 50px;
+    height: 100px;
+    margin-left: 80px;
+    font-size: 30px;
+}
+
+.admin-container{
+  max-width: 800px;
+  /* min-height: auto; */
+  margin: 2.6rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
