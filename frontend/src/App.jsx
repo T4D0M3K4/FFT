@@ -10,7 +10,6 @@ import Categories from './Pages/Categories/Categories';
 import BillUploadForm from './Pages/BillUploadForm/BillUploadForm';
 import Profile from './Pages/Profile/Profile';
 import ProtectedRoute from './Auth/ProtectedRoute/ProtectedRoute';
-import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter } from "react-router-dom";
 import Users from "./Pages/Users/Users";
 import Footer from "./Components/Footer/Footer";
@@ -23,7 +22,6 @@ function App() {
       
       <BrowserRouter>
       <Header/>
-        {/* <Navbar/> */}
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
