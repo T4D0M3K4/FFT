@@ -107,7 +107,7 @@ const Bills = () => {
                     <th>Due Date</th>
                     <th>Amount</th>
                     <th>Status</th>
-                    <th>Change Status</th>
+                    
                     <th></th>
                 </tr>
                 {filteredBills && filteredBills.map(bill =>
@@ -117,7 +117,7 @@ const Bills = () => {
                         }}>{bill.BILL_FILEPATH.split("\\").pop()}</td>
                         <td>{bill.BILL_DUEDATE}</td>
                         <td>{bill.BILL_AMOUNT}</td>
-                        <td>{bill.BILL_STATUS}</td>
+                        
                         <td>
                             <select value={bill.BILL_STATUS} onChange={(e) => handleStatusChange(bill.BILL_ID, e.target.value)}>
                                 <option value="Pending">Pending</option>
