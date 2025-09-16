@@ -44,6 +44,30 @@ const Bills = () => {
         return matchStatus && matchMin && matchMax && matchStart && matchEnd && matchFile;
     });
 
+    const handleDownload = async (id, name) => {
+        try {
+            const token = localStorage.getItem('token');
+            const res=await api.get(`bills/${id}/download`, {
+                responseType: 'blob', 
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const url = window.URL.createObjectURL(new Blob([res.data]));
+            let fileName = name;
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", fileName);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (err) {
+            alert(`Download failed: ${err}`);
+        }
+    };
     return(
         <>
         <div className='container'>
@@ -86,7 +110,9 @@ const Bills = () => {
                 </tr>
                 {filteredBills && filteredBills.map(bill =>
                     <tr>
-                        <td>{bill.BILL_FILEPATH.split("/").pop()}</td>
+                        <td onClick={() => handleDownload(bill.BILL_ID, bill.BILL_FILEPATH.split("\\").pop())} style={{
+                                color:"blue", cursor:"pointer", textDecoration:"underline"
+                        }}>{bill.BILL_FILEPATH.split("\\").pop()}</td>
                         <td>{bill.BILL_DUEDATE}</td>
                         <td>{bill.BILL_AMOUNT}</td>
                         <td>{bill.BILL_STATUS}</td>

@@ -1,13 +1,16 @@
 const dbConfig = require('./../config/db-config');
 
-const create = async (userId, body) => {
+const create = async (body, fileInfo) => {
     try {
-        const [results, metadata] = await dbConfig.query('INSERT INTO fft_bill(BILL_FILEPATH, BILL_DUEDATE, BILL_AMOUNT, BILL_STATUS, USER_ID, TRANSACTION_ID, BUDGET_ID) VALUES (?, ?, ?, ?, ?, ?, ?)', {
-            replacements: ["", body.BILL_DUEDATE, body.BILL_AMOUNT, body.BILL_STATUS, userId, body.TRANSACTION_ID, body.BUDGET_ID]
+        console.log(JSON.stringify(body));
+        console.log(fileInfo.path);
+        const [results, metadata] = await dbConfig.query('INSERT INTO fft_bill(BILL_FILEPATH, BILL_DUEDATE, BILL_AMOUNT, BILL_STATUS, USER_ID) VALUES (?, ?, ?, ?, ?)', {
+            replacements: [fileInfo? fileInfo.path : "", body.BILL_DUEDATE, body.BILL_AMOUNT, body.BILL_STATUS, body.USER_ID]
         });
         return results;
     }
-    catch {
+    catch(err) {
+        console.error(err);
         return null;
     }
 }

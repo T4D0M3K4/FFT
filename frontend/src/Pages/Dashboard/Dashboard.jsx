@@ -94,13 +94,13 @@ const Dashboard = () => {
                     <h2>Admin Dashboard</h2>
                     <p>Manage administrative functions:</p>
                     <div className="card-links">
-                        <button onClick={() => window.location.href = '/categories'}style={{"margin-right":"80px"}} >
+                        <button onClick={() => window.location.href = '/categories'}style={{marginRight:"80px"}} >
                             Manage categories
                         </button>
-                        <button onClick={() => window.location.href = '/bills/upload'}style={{"margin-right":"80px"}}>
+                        <button onClick={() => window.location.href = '/bills/upload'}style={{marginRight:"80px"}}>
                             Upload bills
                         </button>
-                        <button onClick={() => window.location.href = '/users'} style={{"margin-right":"80px"}}>
+                        <button onClick={() => window.location.href = '/users'} style={{marginRight:"80px"}}>
                             Manage users
                         </button>
                     </div>

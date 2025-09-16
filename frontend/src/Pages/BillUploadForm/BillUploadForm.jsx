@@ -5,7 +5,6 @@ const BillUploadForm = () => {
     const [file, setFile] = useState(null);
     const [dueDate, setDueDate] = useState('');
     const [amount, setAmount] = useState('');
-    const [budgetId, setBudgetId] = useState();
     const [userId, setUserId] = useState();
 
     const handleSubmit = async (e) => {
@@ -15,17 +14,12 @@ const BillUploadForm = () => {
         formData.append('BILL_DUEDATE', dueDate);
         formData.append('BILL_AMOUNT', amount);
         formData.append('BILL_STATUS', 'Pending');
-        formData.append('BUDGET_ID', budgetId);
         formData.append('USER_ID', userId);
 
+
         try {
-            await api.post('/bills/upload', formData);
+            await api.post('/bills', formData);
             alert('Bill uploaded!');
-            setFile(null);
-            setDueDate('');
-            setAmount('');
-            setBudgetId(1);
-            setUserId(1);
         }
         catch {
             alert('Upload failed!');
@@ -56,7 +50,8 @@ const BillUploadForm = () => {
                 <input id="amount" type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required/>
                 
                 <label htmlFor="user">User:</label>
-                <select id="user" value={userId} onChange={(e) => setUserId(e.target.value)} required>
+                <select id="user" onChange={(e) => setUserId(e.target.value)} required>
+                    <option>--</option>
                     {users.map(user => (
                         <option key={user.USER_ID} value={user.USER_ID}>
                             {user.USER_EMAIL}
