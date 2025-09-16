@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
+import Footer from "../../Components/Footer/Footer";
 
 const BillUploadForm = () => {
     const [file, setFile] = useState(null);
@@ -37,6 +38,7 @@ const BillUploadForm = () => {
     },[]);
 
     return(
+        <>
         <div className='container'>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <h2>Upload BIll</h2>
@@ -62,6 +64,8 @@ const BillUploadForm = () => {
                 <button type="submit">Upload</button>
             </form>
         </div>
+        <Footer/>
+        </>
     );
 };
 

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import api from  '../../API/API';
 import './users.css';
+import Footer from "../../Components/Footer/Footer";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -55,6 +56,7 @@ const Users = () => {
 
    
     return (
+        <>
         <div className='container'>
             <h2>Manage Users:</h2>
             <table>
@@ -100,6 +102,8 @@ const Users = () => {
                 )}
             </table>
         </div>
+        <Footer/>
+        </>
     );
 };
 

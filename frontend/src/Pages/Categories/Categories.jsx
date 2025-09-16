@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
+import Footer from "../../Components/Footer/Footer";
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
@@ -34,6 +35,7 @@ const Categories = () => {
     }
 
     return(
+        <>
         <div className='container'>
             <h2>Create a New Category:</h2>
             <form onSubmit={handleCreate}>
@@ -64,6 +66,8 @@ const Categories = () => {
                 )}
             </table>
         </div>
+        <Footer/>
+        </>
     );
 };
 
