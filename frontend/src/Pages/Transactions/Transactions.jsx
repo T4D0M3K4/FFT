@@ -209,6 +209,7 @@ const Transactions = () => {
                
 
             <h2>Previous Transactions:</h2>
+            <div className="table-container">
             <table>
                 <tr>
                     <th>Date</th>
@@ -230,7 +231,8 @@ const Transactions = () => {
                         <td><button onClick={() => handleDelete(transaction.TRANSACTION_ID)}>Delete</button></td>
                     </tr>
                 )}
-            </table>         
+            </table>
+            </div>         
              </div>
             </>
             )}

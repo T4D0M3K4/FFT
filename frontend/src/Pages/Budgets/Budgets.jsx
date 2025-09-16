@@ -151,6 +151,7 @@ const Budgets = () => {
             </form><br /><hr />
             
             <h2>Active Budgets:</h2>
+            <div className="table-container">
             <table>
                 <tr>
                     <th>Name</th>
@@ -171,6 +172,7 @@ const Budgets = () => {
                     </tr>
                 )}
             </table>
+            </div>
             </div>
         </>)}
         <Footer/>

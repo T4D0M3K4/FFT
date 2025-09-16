@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import api from "../../API/API";
 import Footer from "../../Components/Footer/Footer";
+import './bills.css'
 
 const Bills = () => {
     const [bills, setBills] = useState([]);
@@ -99,6 +100,7 @@ const Bills = () => {
             </form><br /><hr />
 
             <h2>Current Bills:</h2>
+            <div className="table-container">
             <table>
                 <tr>
                     <th>File</th>
@@ -127,6 +129,7 @@ const Bills = () => {
                     </tr>
                 )}
             </table>
+            </div>
         </div>
         <Footer/>
         </>
