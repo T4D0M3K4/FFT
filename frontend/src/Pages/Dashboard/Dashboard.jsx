@@ -58,7 +58,7 @@ const Dashboard = () => {
     };
 
     const budgetsData = {
-        labels: budgets.map(budget => `${budget.BUDGET_STARTDATE} - ${budget.BUDGET_ENDDATE}`),
+        labels: budgets.map(budget => `${budget.BUDGET_NAME}`),
         datasets: [
             {
                 label: 'Amount',
